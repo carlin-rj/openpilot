@@ -1,5 +1,29 @@
 ![](https://user-images.githubusercontent.com/47793918/233812617-beab2e71-57b9-479e-8bff-c3931347ca40.png)
 
+## 🚀 C3 分支特色功能
+
+> **本分支基于 sunnypilot 开发，专为 C3 设备优化，提供额外的安全和便利功能**
+
+### 🎥 行车记录仪服务系统
+- **📱 专用移动应用**: 独立开发的 [Flutter 应用](https://github.com/carlin-rj/openpilot-dashcam-app)，提供流畅的视频查看体验
+- **🖥️ Web 管理界面**: 支持浏览器访问，查看和管理行车记录
+- **🎬 多摄像头支持**: fcamera、dcamera、ecamera、qcamera 全方位记录
+- **📡 HLS 流媒体**: 高效的视频流传输和播放
+- **⬇️ 视频下载**: 支持原始文件下载和管理
+
+### 👁️ 驾驶员分心检测模式
+- **🔍 智能监控**: 实时检测驾驶员注意力状态，提升行车安全
+- **⚠️ 分心警报**: 当检测到驾驶员分心时及时提醒
+- **📊 行为分析**: 记录和分析驾驶员注意力模式
+- **⚙️ 灵敏度调节**: 可根据个人习惯调整检测敏感度
+
+### 🚫 驾驶员监控开关功能
+- **🔧 完全控制**: 可完全关闭驾驶员监控功能，保护隐私
+- **🎛️ 灵活配置**: 支持临时或永久关闭选项
+- **⚡ 即时生效**: 设置更改立即生效，无需重启
+
+---
+
 ## 🌞 What is sunnypilot?
 [sunnypilot](https://github.com/sunnyhaibin/sunnypilot) is a fork of comma.ai's openpilot, an open source driver assistance system. sunnypilot offers the user a unique driving experience for over 300+ supported car makes and models with modified behaviors of driving assist engagements. sunnypilot complies with comma.ai's safety rules as accurately as possible.
 
@@ -22,7 +46,9 @@ https://docs.sunnypilot.ai/ is your one stop shop for everything from features t
 Detailed instructions for [how to mount the device in a car](https://comma.ai/setup).
 
 ## Installation
-Please refer to [Recommended Branches](#-recommended-branches) to find your preferred/supported branch. This guide will assume you want to install the latest `release-c3` branch.
+Please refer to [Recommended Branches](#-recommended-branches) to find your preferred/supported branch. This guide will assume you want to install the latest `c3-dev` branch with enhanced features.
+
+> 🌟 **C3 分支优势**: 安装本分支将获得行车记录仪服务、驾驶员分心检测、监控开关等独有功能！
 
 * sunnypilot not installed or you installed a version before 0.8.17?
   1. [Factory reset/uninstall](https://github.com/commaai/openpilot/wiki/FAQ#how-can-i-reset-the-device) the previous software if you have another software/fork installed.
@@ -36,11 +62,12 @@ Please refer to [Recommended Branches](#-recommended-branches) to find your pref
   3. At the `Target Branch` option, press `SELECT` to open the Target Branch selector.
   4. Scroll to select the desired branch per  Recommended Branches (see below). Example: `release-c3`
 
-|    Branch    |         Installation URL         |
-|:------------:|:--------------------------------:|
-| `release-c3` | https://release-c3.sunnypilot.ai |
-| `staging-c3` | https://staging-c3.sunnypilot.ai |
-|   `dev-c3`   | https://dev-c3.sunnypilot.ai     |
+|    Branch    |         Installation URL         |                    特色功能                    |
+|:------------:|:--------------------------------:|:--------------------------------------------:|
+| `release-c3` | https://release-c3.sunnypilot.ai |              标准 sunnypilot 功能              |
+| `staging-c3` | https://staging-c3.sunnypilot.ai |              标准 sunnypilot 功能              |
+|   `dev-c3`   | https://dev-c3.sunnypilot.ai     |              标准 sunnypilot 功能              |
+|   `c3-dev`   | 🚀 **本分支 (推荐)** |  **行车记录仪 + 分心检测 + 监控开关** |
 
 ### If you want to use our newest branches (our rewrite)
 > [!TIP]
@@ -117,3 +144,41 @@ By becoming a sponsor, you will gain access to exclusive content, early access t
 Your continuous love and support are greatly appreciated! Enjoy 🥰
 
 <span>-</span> Jason, Founder of sunnypilot
+
+---
+
+## 🎯 C3 分支详细功能说明
+
+### 📱 行车记录仪服务系统
+本分支集成了完整的行车记录仪查看系统，让您可以随时查看和管理行车记录：
+
+- **移动应用**: [openpilot-dashcam-app](https://github.com/carlin-rj/openpilot-dashcam-app) - 专用的 Flutter 移动应用
+- **Web 界面**: 通过浏览器访问 `http://设备IP:8009` 查看视频
+- **多摄像头**: 支持前置、驾驶员、广角、低质量四个摄像头
+- **视频管理**: 按路线和时间段组织，支持筛选和下载
+
+### 👁️ 驾驶员分心检测
+基于计算机视觉技术，实时监控驾驶员状态：
+
+- **实时检测**: 持续监控驾驶员眼部和头部动作
+- **智能警报**: 检测到分心时通过声音和视觉提醒
+- **数据记录**: 记录分心事件，帮助改善驾驶习惯
+- **个性化**: 可调整检测敏感度适应不同驾驶员
+
+### 🔧 驾驶员监控开关
+完全的隐私控制权：
+
+- **一键关闭**: 可完全禁用驾驶员摄像头监控
+- **灵活设置**: 支持临时关闭或永久关闭
+- **即时生效**: 设置立即生效，无需重启系统
+- **隐私保护**: 尊重用户隐私选择
+
+### 🚀 如何使用这些功能
+
+1. **安装 C3 分支**: 使用本仓库的代码安装到您的 C3 设备
+2. **启用行车记录仪**: 在设置中开启行车记录仪服务
+3. **下载移动应用**: 从 [GitHub](https://github.com/carlin-rj/openpilot-dashcam-app) 下载 APK 安装
+4. **配置分心检测**: 在设置中调整分心检测参数
+5. **设置监控开关**: 根据需要开启或关闭驾驶员监控
+
+> 💡 **提示**: 这些功能专为提升驾驶安全和用户体验而设计，建议根据实际需求合理使用。
