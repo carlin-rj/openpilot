@@ -166,6 +166,37 @@ class VideoFileManager:
         except (ValueError, IndexError):
             return None
 
+    def delete_segment(self, segment_id: str) -> bool:
+        """根据ID删除视频段目录"""
+        try:
+            # 验证segment_id格式
+            parts = segment_id.split('--')
+            if len(parts) != 3:
+                self.logger.warning(f"无效的segment_id格式: {segment_id}")
+                return False
+
+            # 构建段目录路径
+            segment_path = self.log_root / segment_id
+
+            # 检查目录是否存在
+            if not segment_path.exists():
+                self.logger.warning(f"段目录不存在: {segment_path}")
+                return False
+
+            # 确保是目录而不是文件
+            if not segment_path.is_dir():
+                self.logger.warning(f"路径不是目录: {segment_path}")
+                return False
+
+            # 删除整个目录及其内容
+            shutil.rmtree(segment_path)
+            self.logger.info(f"成功删除段目录: {segment_path}")
+            return True
+
+        except Exception as e:
+            self.logger.error(f"删除段目录失败 {segment_id}: {e}")
+            return False
+
     def get_routes(self) -> List[RouteInfo]:
         """获取所有路线信息"""
         segments = self.scan_segments()
@@ -273,6 +304,7 @@ class DashcamServer:
         self.app.router.add_get('/api/routes/{route_name}', self.get_route_detail)
         self.app.router.add_get('/api/segments', self.get_segments)
         self.app.router.add_get('/api/segments/{segment_id}', self.get_segment_detail)
+        self.app.router.add_post('/api/segments/delete', self.delete_segments)
         # HLS视频流路由
         self.app.router.add_get('/api/hls/{segment_id}/{camera}/playlist.m3u8', self.get_hls_playlist)
         self.app.router.add_get('/api/hls/{segment_id}/{camera}/{filename}', self.get_hls_segment)
@@ -1080,6 +1112,46 @@ class DashcamServer:
         except Exception as e:
             self.logger.error(f"获取路线视频段信息失败: {e}")
             return web.json_response({'error': '获取路线视频段信息失败'}, status=500)
+
+    async def delete_segments(self, request):
+        """批量删除视频段"""
+        try:
+            # 获取请求体中的segment_ids列表
+            data = await request.json()
+            segment_ids = data.get('segment_ids', [])
+
+            # 验证请求体格式
+            if not isinstance(segment_ids, list):
+                return web.json_response({'error': 'segment_ids必须是列表'}, status=400)
+
+            if not segment_ids:
+                return web.json_response({'error': 'segment_ids列表不能为空'}, status=400)
+
+            # 限制一次删除的段数量，防止意外删除过多数据
+            if len(segment_ids) > 100:
+                return web.json_response({'error': '一次最多删除100个段'}, status=400)
+
+            # 删除每个段并记录结果
+            results = {}
+            for segment_id in segment_ids:
+                if not isinstance(segment_id, str):
+                    results[segment_id] = {'success': False, 'error': 'segment_id必须是字符串'}
+                    continue
+
+                # 调用文件管理器删除段
+                success = self.file_manager.delete_segment(segment_id)
+                if success:
+                    results[segment_id] = {'success': True}
+                else:
+                    results[segment_id] = {'success': False, 'error': '删除失败'}
+
+            return web.json_response({'results': results})
+
+        except json.JSONDecodeError:
+            return web.json_response({'error': '无效的JSON格式'}, status=400)
+        except Exception as e:
+            self.logger.error(f"批量删除视频段失败: {e}")
+            return web.json_response({'error': '批量删除失败'}, status=500)
 
     async def start_server(self):
         """启动服务器"""
