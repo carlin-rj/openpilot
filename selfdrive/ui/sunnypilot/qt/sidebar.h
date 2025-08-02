@@ -26,10 +26,20 @@ public:
 
 private:
   void drawSidebar(QPainter &p) override;
+  void loadSidebarConfig();
+  std::vector<std::pair<QString, std::function<ItemStatus()>>> getAvailableMetrics();
+
+  std::string last_sidebar_config;
 
   Params params;
   QString sidebar_temp = "0";
   QString sidebar_temp_str = "0";
+
+  // Dynamic sidebar configuration
+  std::vector<QString> enabled_metrics;
+  static const int METRIC_START_Y = 310;
+  static const int METRIC_SPACING = 130;
+  static const int MAX_METRICS = 5;
 
 protected:
   const QColor progress_color = QColor(3, 132, 252);

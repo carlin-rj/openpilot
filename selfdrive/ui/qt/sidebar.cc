@@ -120,13 +120,13 @@ void Sidebar::updateState(const UIState &s) {
   capnp::List<int8_t>::Reader cpu_loads = deviceState.getCpuUsagePercent();
   int cpu_usage = cpu_loads.size() != 0 ? std::accumulate(cpu_loads.begin(), cpu_loads.end(), 0) / cpu_loads.size() : 0;
   QString cpu_usages = QString::number(cpu_usage) + "%";
-  ItemStatus cputatus = {{tr("CPU"), cpu_usages}, good_color};
+  ItemStatus cpuStatus = {{tr("CPU"), cpu_usages}, good_color};
   if (cpu_usage >= 85) {
-    cputatus = {{tr("CPU"), cpu_usages}, danger_color};
+    cpuStatus = {{tr("CPU"), cpu_usages}, danger_color};
   } else if (cpu_usage >= 70) {
-    cputatus = {{tr("CPU"), cpu_usages}, warning_color};
+    cpuStatus = {{tr("CPU"), cpu_usages}, warning_color};
   }
-  setProperty("cputatus", QVariant::fromValue(cputatus));
+  setProperty("cpuStatus", QVariant::fromValue(cpuStatus));
 
   int gpu_usage = deviceState.getGpuUsagePercent();
   QString gpu_usages = QString::number(gpu_usage) + "%";
@@ -150,11 +150,11 @@ void Sidebar::updateState(const UIState &s) {
 
   int free_space = deviceState.getFreeSpacePercent();
   QString free_spaces = QString::number(free_space) + "%";
-  ItemStatus freeStatus = {{tr("Free Space"), free_spaces}, good_color};
+  ItemStatus freeStatus = {{tr("STORAGE"), free_spaces}, good_color};
   if (free_space >= 80) {
-    freeStatus = {{tr("Free Space"), free_spaces}, danger_color};
+    freeStatus = {{tr("STORAGE"), free_spaces}, danger_color};
   } else if (free_space >= 50) {
-    freeStatus = {{tr("Free Space"), free_spaces}, warning_color};
+    freeStatus = {{tr("STORAGE"), free_spaces}, warning_color};
   }
   setProperty("freeStatus", QVariant::fromValue(freeStatus));
 }

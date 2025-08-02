@@ -25,8 +25,8 @@ class Sidebar : public QFrame {
   Q_PROPERTY(int netStrength MEMBER net_strength NOTIFY valueChanged);
   Q_PROPERTY(bool recordingAudio MEMBER recording_audio NOTIFY valueChanged);
 
-  Q_PROPERTY(ItemStatus cputatus MEMBER cpu_status NOTIFY valueChanged);
-  Q_PROPERTY(ItemStatus gputatus MEMBER gpu_status NOTIFY valueChanged);
+  Q_PROPERTY(ItemStatus cpuStatus MEMBER cpu_status NOTIFY valueChanged);
+  Q_PROPERTY(ItemStatus gpuStatus MEMBER gpu_status NOTIFY valueChanged);
   Q_PROPERTY(ItemStatus memoryStatus MEMBER memory_status NOTIFY valueChanged);
   Q_PROPERTY(ItemStatus freeStatus MEMBER free_status NOTIFY valueChanged);
 ;

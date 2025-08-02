@@ -1800,7 +1800,7 @@ This may take up to a minute.</source>
         <translation>设备GPU</translation>
     </message>
     <message>
-        <source>Free Space</source>
+        <source>STORAGE</source>
         <translation>存储空间</translation>
     </message>
     <message>

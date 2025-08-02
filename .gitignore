@@ -108,3 +108,4 @@ Pipfile
 !.idea/customTargets.xml
 !.idea/tools/*
 !.run/*
+.cache

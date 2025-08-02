@@ -7,6 +7,9 @@
 
 #include "selfdrive/ui/sunnypilot/qt/sidebar.h"
 
+#include <sstream>
+#include <functional>
+
 #include "selfdrive/ui/qt/util.h"
 #include "selfdrive/ui/sunnypilot/qt/util.h"
 #include "common/params.h"
@@ -15,6 +18,22 @@ SidebarSP::SidebarSP(QWidget *parent) : Sidebar(parent) {
   // Redirect uiUpdate signal to SidebarSP::updateState instead of Sidebar::updateState
   QObject::disconnect(uiState(), &UIState::uiUpdate, this, &Sidebar::updateState);
   QObject::connect(uiStateSP(), &UIStateSP::uiUpdate, this, &SidebarSP::updateState);
+
+  // Load sidebar configuration
+  loadSidebarConfig();
+
+  last_sidebar_config = params.get("SidebarMetricsConfig");
+  // 轮询参数变化
+  QTimer *configCheckTimer = new QTimer(this);
+  connect(configCheckTimer, &QTimer::timeout, this, [this]() {
+    std::string new_config = params.get("SidebarMetricsConfig");
+    if (new_config != last_sidebar_config) {
+      last_sidebar_config = new_config;
+      loadSidebarConfig();     // 重新加载配置
+      update();                // 重新绘制
+    }
+  });
+  configCheckTimer->start(2000);  // 每3秒检查一次
 }
 
 void SidebarSP::updateState(const UIStateSP &s) {
@@ -44,13 +63,56 @@ void SidebarSP::updateState(const UIStateSP &s) {
   setProperty("sunnylinkStatus", QVariant::fromValue(sunnylinkStatus));
 }
 
+void SidebarSP::loadSidebarConfig() {
+  // Load enabled metrics from params, default to original 5 metrics
+  std::string config = params.get("SidebarMetricsConfig");
+
+  if (config.empty()) {
+    // Default configuration - original 5 metrics
+    enabled_metrics = {"TEMP", "CPU", "MEMORY", "PANDA", "CONNECT", "STORAGE", "GPU", "SUNNYLINK"};
+    // Save default config
+    params.put("SidebarMetricsConfig", "TEMP,CPU,MEMORY,PANDA,CONNECT");
+  } else {
+    // Parse comma-separated config
+    enabled_metrics.clear();
+    std::stringstream ss(config);
+    std::string item;
+    while (std::getline(ss, item, ',') && enabled_metrics.size() < MAX_METRICS) {
+      QString qitem = QString::fromStdString(item).trimmed();
+      enabled_metrics.push_back(qitem);
+    }
+  }
+}
+
+std::vector<std::pair<QString, std::function<ItemStatus()>>> SidebarSP::getAvailableMetrics() {
+  return {
+    {"TEMP", [this]() { return temp_status; }},
+    {"CPU", [this]() { return cpu_status; }},
+    {"GPU", [this]() { return gpu_status; }},
+    {"MEMORY", [this]() { return memory_status; }},
+    {"STORAGE", [this]() { return free_status; }},
+    {"PANDA", [this]() { return panda_status; }},
+    {"CONNECT", [this]() { return connect_status; }},
+    {"SUNNYLINK", [this]() { return sunnylink_status; }}
+  };
+}
+
 void SidebarSP::drawSidebar(QPainter &p) {
   Sidebar::drawSidebar(p);
-  // metrics
-  drawMetric(p, temp_status.first, temp_status.second, 310);
-  drawMetric(p, cpu_status.first, cpu_status.second, 440);
-  drawMetric(p, memory_status.first, memory_status.second, 570);
-  drawMetric(p, panda_status.first, panda_status.second, 700);
-  drawMetric(p, connect_status.first, connect_status.second, 830);
-//  drawMetric(p, sunnylink_status.first, sunnylink_status.second, 960);
+
+  auto available_metrics = getAvailableMetrics();
+  int metric_count = 0;
+  for (const QString &metric_name : enabled_metrics) {
+    if (metric_count >= MAX_METRICS) break;
+
+    for (const auto &metric : available_metrics) {
+      if (metric.first == metric_name) {
+        ItemStatus status = metric.second();
+        int y_pos = METRIC_START_Y + (metric_count * METRIC_SPACING);
+        drawMetric(p, status.first, status.second, y_pos);
+        metric_count++;
+        break;
+      }
+    }
+  }
 }
