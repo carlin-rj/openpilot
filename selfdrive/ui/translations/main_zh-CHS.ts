@@ -1791,6 +1791,22 @@ This may take up to a minute.</source>
         <source>PANDA</source>
         <translation>PANDA</translation>
     </message>
+   <message>
+        <source>CPU</source>
+        <translation>设备CPU</translation>
+    </message>
+    <message>
+        <source>GPU</source>
+        <translation>设备GPU</translation>
+    </message>
+    <message>
+        <source>Free Space</source>
+        <translation>存储空间</translation>
+    </message>
+    <message>
+        <source>MEMORY</source>
+        <translation>设备内存</translation>
+    </message>
     <message>
         <source>--</source>
         <translation>--</translation>
