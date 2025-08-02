@@ -66,21 +66,13 @@ void SidebarSP::updateState(const UIStateSP &s) {
 void SidebarSP::loadSidebarConfig() {
   // Load enabled metrics from params, default to original 5 metrics
   std::string config = params.get("SidebarMetricsConfig");
-
-  if (config.empty()) {
-    // Default configuration - original 5 metrics
-    enabled_metrics = {"TEMP", "CPU", "MEMORY", "PANDA", "CONNECT", "STORAGE", "GPU", "SUNNYLINK"};
-    // Save default config
-    params.put("SidebarMetricsConfig", "TEMP,CPU,MEMORY,PANDA,CONNECT");
-  } else {
     // Parse comma-separated config
-    enabled_metrics.clear();
-    std::stringstream ss(config);
-    std::string item;
-    while (std::getline(ss, item, ',') && enabled_metrics.size() < MAX_METRICS) {
-      QString qitem = QString::fromStdString(item).trimmed();
-      enabled_metrics.push_back(qitem);
-    }
+  enabled_metrics.clear();
+  std::stringstream ss(config);
+  std::string item;
+  while (std::getline(ss, item, ',') && enabled_metrics.size() < MAX_METRICS) {
+    QString qitem = QString::fromStdString(item).trimmed();
+    enabled_metrics.push_back(qitem);
   }
 }
 
