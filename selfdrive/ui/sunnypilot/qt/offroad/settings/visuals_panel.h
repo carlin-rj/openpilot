@@ -9,6 +9,8 @@
 
 #include "selfdrive/ui/sunnypilot/qt/offroad/settings/settings.h"
 #include "selfdrive/ui/sunnypilot/qt/widgets/scrollview.h"
+// 在现有的includes之后添加
+#include "selfdrive/ui/sunnypilot/qt/widgets/controls.h"
 
 class ScrollViewSP;
 
@@ -28,4 +30,7 @@ protected:
  std::map<std::string, ParamControlSP*> toggles;
  ParamWatcher * param_watcher;
  ButtonParamControlSP *chevron_info_settings;
+
+// 在private部分添加
+MetricsConfigControlSP *metrics_config;
 };

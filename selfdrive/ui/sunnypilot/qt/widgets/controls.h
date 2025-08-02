@@ -12,6 +12,12 @@
 #include <string>
 #include <vector>
 
+#include <QCheckBox>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QLabel>
+#include <QStringList>
+
 #include "common/params.h"
 #include "selfdrive/ui/qt/widgets/controls.h"
 #include "selfdrive/ui/qt/widgets/input.h"
@@ -749,4 +755,29 @@ public:
     setObjectName("back_btn");
     setFixedSize(400, 100);
   }
+};
+
+// 在controls.h文件末尾添加新的控件类
+class MetricsConfigControlSP : public AbstractControlSP {
+  Q_OBJECT
+
+public:
+  MetricsConfigControlSP(const QString &param, const QString &title, const QString &desc,
+                        const std::vector<QString> &available_metrics, QWidget *parent = nullptr);
+  void refresh();
+  void showEvent(QShowEvent *event) override;
+
+private slots:
+  void onCheckboxChanged();
+
+private:
+  void updateParamValue();
+  void loadCurrentConfig();
+
+  std::string key;
+  Params params;
+  std::vector<QString> metrics_list;
+  std::vector<QCheckBox*> checkboxes;
+  QVBoxLayout *metrics_layout;
+  static const int MAX_METRICS = 5;
 };

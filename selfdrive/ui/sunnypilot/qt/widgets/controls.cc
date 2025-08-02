@@ -269,3 +269,160 @@ void ParamControlSP::toggleClicked(bool state) {
     toggle.togglePosition();
   }
 }
+
+// 在controls.cc文件末尾添加实现
+MetricsConfigControlSP::MetricsConfigControlSP(const QString &param, const QString &title, const QString &desc,
+                                              const std::vector<QString> &available_metrics, QWidget *parent)
+    : AbstractControlSP(title, desc, "", parent), key(param.toStdString()), metrics_list(available_metrics) {
+
+  // 创建复选框容器，独立于标题区域
+  QWidget *checkbox_container = new QWidget;
+  checkbox_container->setStyleSheet("background-color: #393939; border-radius: 20px; padding: 20px; margin-top: 10px;");
+
+  // 使用网格布局，每行显示4个复选框
+  QGridLayout *grid_layout = new QGridLayout(checkbox_container);
+  grid_layout->setSpacing(20);
+  grid_layout->setHorizontalSpacing(25);
+
+  const int columns = 4;
+  int row = 0;
+  int col = 0;
+
+  // 定义多语言映射表
+  QMap<QString, QString> metric_translations = {
+    {"TEMP", tr("TEMP")},
+    {"CPU", tr("CPU")},
+    {"GPU", tr("GPU")},
+    {"MEMORY", tr("MEMORY")},
+    {"STORAGE", tr("STORAGE")},
+    {"PANDA", tr("PANDA")},
+    {"CONNECT", tr("CONNECT")},
+    {"SUNNYLINK", tr("SUNNYLINK")}
+  };
+
+  // 为每个metric创建checkbox，使用翻译后的名称
+  for (const QString &metric : metrics_list) {
+    QString display_name = metric_translations.value(metric, metric); // 如果没有翻译则使用原名
+
+    QCheckBox *checkbox = new QCheckBox(display_name);
+    checkbox->setStyleSheet(R"(
+      QCheckBox {
+        font-size: 32px;
+        font-weight: 450;
+        color: #FFFFFF;
+        spacing: 12px;
+        min-width: 140px;
+        padding: 8px;
+      }
+      QCheckBox::indicator {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        border: 2px solid #FFFFFF;
+        background-color: transparent;
+      }
+      QCheckBox::indicator:checked {
+        background-color: #1e79e8;
+        border-color: #1e79e8;
+      }
+      QCheckBox::indicator:checked:pressed {
+        background-color: #1E8FFF;
+      }
+    )");
+
+    checkboxes.push_back(checkbox);
+    grid_layout->addWidget(checkbox, row, col);
+
+    connect(checkbox, &QCheckBox::toggled, this, &MetricsConfigControlSP::onCheckboxChanged);
+
+    col++;
+    if (col >= columns) {
+      col = 0;
+      row++;
+    }
+  }
+
+  // 添加说明文字，使用tr()函数
+  QLabel *hint = new QLabel(tr("Select up to %1 metrics to display").arg(MAX_METRICS));
+  hint->setStyleSheet("font-size: 26px; color: #CCCCCC; margin-top: 15px;");
+  hint->setAlignment(Qt::AlignCenter);
+  grid_layout->addWidget(hint, row + 1, 0, 1, columns);
+
+  // 创建垂直布局，将复选框容器放在主布局下方
+  QVBoxLayout *container_layout = new QVBoxLayout;
+  container_layout->setMargin(0);
+  container_layout->setSpacing(0);
+  container_layout->addWidget(checkbox_container);
+
+  // 将整个容器添加到主布局
+  main_layout->addLayout(container_layout);
+
+  loadCurrentConfig();
+}
+
+void MetricsConfigControlSP::loadCurrentConfig() {
+  std::string config = params.get(key);
+
+  // 清除所有选择
+  for (auto checkbox : checkboxes) {
+    checkbox->setChecked(false);
+  }
+
+  if (!config.empty()) {
+    std::stringstream ss(config);
+    std::string item;
+    while (std::getline(ss, item, ',')) {
+      QString qitem = QString::fromStdString(item).trimmed();
+
+      for (int i = 0; i < metrics_list.size(); i++) {
+        if (metrics_list[i] == qitem && i < checkboxes.size()) {
+          checkboxes[i]->setChecked(true);
+          break;
+        }
+      }
+    }
+  }
+}
+
+void MetricsConfigControlSP::onCheckboxChanged() {
+  // 检查选中的数量
+  int checked_count = 0;
+  for (auto checkbox : checkboxes) {
+    if (checkbox->isChecked()) {
+      checked_count++;
+    }
+  }
+
+  // 如果超过最大数量，禁用未选中的checkbox
+  bool enable_unchecked = checked_count < MAX_METRICS;
+  for (auto checkbox : checkboxes) {
+    if (!checkbox->isChecked()) {
+      checkbox->setEnabled(enable_unchecked);
+    }
+  }
+
+  updateParamValue();
+}
+
+void MetricsConfigControlSP::updateParamValue() {
+  QStringList selected_metrics;
+
+  for (int i = 0; i < checkboxes.size(); i++) {
+    if (checkboxes[i]->isChecked()) {
+      selected_metrics.push_back(metrics_list[i]);
+    }
+  }
+
+  // 构建逗号分隔的字符串
+  QString config_str = selected_metrics.join(",");
+  params.put(key, config_str.toStdString());
+}
+
+void MetricsConfigControlSP::refresh() {
+  loadCurrentConfig();
+}
+
+void MetricsConfigControlSP::showEvent(QShowEvent *event) {
+  QWidget::showEvent(event);
+  refresh();
+}

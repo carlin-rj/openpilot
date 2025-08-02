@@ -61,6 +61,26 @@ VisualsPanel::VisualsPanel(QWidget *parent) : QWidget(parent) {
     param_watcher->addParam(param);
   }
 
+  // 在现有的toggle_defs之后添加
+
+  // Sidebar Metrics Configuration
+  std::vector<QString> available_metrics = {
+    "TEMP", "CPU", "GPU", "MEMORY", "STORAGE", "PANDA", "CONNECT", "SUNNYLINK"
+  };
+
+  metrics_config = new MetricsConfigControlSP(
+    "SidebarMetricsConfig",
+    tr("Sidebar Metrics Configuration"),
+    tr("Select which metrics to display in the sidebar. You can choose up to 8 metrics. Changes will take effect immediately."),
+    available_metrics,
+    this
+  );
+
+  list->addItem(metrics_config);
+  param_watcher->addParam("SidebarMetricsConfig");
+
+  // 在paramsRefresh()方法中也要添加刷新逻辑
+
   // Visuals: Display Metrics below Chevron
   std::vector<QString> chevron_info_settings_texts{tr("Off"), tr("Distance"), tr("Speed"), tr("Time"), tr("All")};
   chevron_info_settings = new ButtonParamControlSP(
@@ -89,5 +109,10 @@ void VisualsPanel::paramsRefresh() {
 
   if (chevron_info_settings) {
     chevron_info_settings->refresh();
+  }
+
+  // Add this line
+  if (metrics_config) {
+    metrics_config->refresh();
   }
 }

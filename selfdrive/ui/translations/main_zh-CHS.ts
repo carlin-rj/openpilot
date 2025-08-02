@@ -2313,6 +2313,14 @@ Data</source>
         <source>All</source>
         <translation>全部</translation>
     </message>
+    <message>
+        <source>Sidebar Metrics Configuration</source>
+        <translation>侧边栏指标配置</translation>
+    </message>
+    <message>
+        <source>Select which metrics to display in the sidebar. You can choose up to 8 metrics. Changes will take effect immediately.</source>
+        <translation>选择在侧边栏中显示哪些指标。您最多可以选择8个指标。更改将立即生效。</translation>
+    </message>
 </context>
 <context>
     <name>OsmPanel</name>
@@ -2569,6 +2577,45 @@ Are you sure you want to delete all the maps?</source>
     <message>
         <source>Settings restored. Confirm to restart the interface.</source>
         <translation>设置已恢复。确认重新启动界面。</translation>
+    </message>
+</context>
+<context>
+    <name>MetricsConfigControlSP</name>
+    <message>
+        <source>TEMP</source>
+        <translation>CPU温度</translation>
+    </message>
+    <message>
+        <source>CPU</source>
+        <translation>CPU占用</translation>
+    </message>
+    <message>
+        <source>GPU</source>
+        <translation>设备GPU</translation>
+    </message>
+    <message>
+        <source>MEMORY</source>
+        <translation>内存占用</translation>
+    </message>
+    <message>
+        <source>STORAGE</source>
+        <translation>存储占用</translation>
+    </message>
+    <message>
+        <source>PANDA</source>
+        <translation>PANDA</translation>
+    </message>
+    <message>
+        <source>CONNECT</source>
+        <translation>云端连接</translation>
+    </message>
+    <message>
+        <source>SUNNYLINK</source>
+        <translation>Sunny Link</translation>
+    </message>
+    <message>
+        <source>Select up to %1 metrics to display</source>
+        <translation>选择最多 %1 个指标显示</translation>
     </message>
 </context>
 <context>
