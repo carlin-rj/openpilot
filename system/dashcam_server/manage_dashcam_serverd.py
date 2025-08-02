@@ -19,7 +19,7 @@ def main():
 
 def is_dashcam_server_enabled(params):
   """检测 dashcam server 是否被用户启用"""
-  return int(params.get("DashcamServerEnabled"))
+  return params.get_bool("DashcamServerEnabled")
 
 
 def get_dashcam_server_port(params):
@@ -86,7 +86,7 @@ def manage_dashcam_serverd(pid_param, process_name, target):
   try:
     while True:
       # print("检测按钮是否开启")
-      service_enabled = is_dashcam_server_enabled(params) == 1
+      service_enabled = is_dashcam_server_enabled(params)
       server_running = is_dashcam_server_running(params, pid_param)
 
       # 检测按钮是否开启，但是服务没开启则开启服务
