@@ -1168,8 +1168,8 @@ class DashcamServer:
 
 async def main():
   params = Params()
-  params.put("DashcamServerPid", str(os.getpid()))
-  port = int(params.get("DashcamServerPort", encoding='utf-8'))
+  params.put("DashcamServerPid", os.getpid())
+  port = int(params.get("DashcamServerPort"))
 
   logging.basicConfig(
     level=logging.INFO,

@@ -24,11 +24,11 @@ def is_dashcam_server_enabled(params):
 
 def get_dashcam_server_port(params):
   """获取 dashcam server 端口"""
-  return params.get("DashcamServerPort", encoding='utf-8')
+  return params.get("DashcamServerPort")
 
 def is_dashcam_server_running(params, pid_param):
   """检测 dashcam server 是否正在运行"""
-  pid = params.get(pid_param, encoding='utf-8')
+  pid = params.get(pid_param)
   if pid is None:
     return False
 
@@ -46,16 +46,15 @@ def start_dashcam_server(params, pid_param, process_name, target):
   port = get_dashcam_server_port(params)
   cloudlog.info(f"启动 {process_name}，端口: {port}")
 
-  proc = subprocess.Popen(['python', '-m', target],
+  subprocess.Popen(['python', '-m', target],
                          stdin=open('/dev/null'),
                          stdout=open('/dev/null', 'w'),
                          stderr=open('/dev/null', 'w'),
                          preexec_fn=os.setpgrp)
-  params.put(pid_param, str(proc.pid))
 
 def stop_dashcam_server(params, pid_param, process_name):
   """停止 dashcam server"""
-  pid = params.get(pid_param, encoding='utf-8')
+  pid = params.get(pid_param)
   if pid is None:
     return
 
@@ -87,10 +86,14 @@ def manage_dashcam_serverd(pid_param, process_name, target):
     while True:
       # print("检测按钮是否开启")
       service_enabled = is_dashcam_server_enabled(params)
+      print(service_enabled)
       server_running = is_dashcam_server_running(params, pid_param)
+      print(server_running)
 
       # 检测按钮是否开启，但是服务没开启则开启服务
       if service_enabled and not server_running:
+        print("start")
+
         start_dashcam_server(params, pid_param, process_name, target)
 
       # 如果按钮关闭，并且服务开启则关闭服务
