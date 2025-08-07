@@ -9,6 +9,7 @@
 
 #include <QPainter>
 #include <QStyleOption>
+#include <sstream>
 
 QFrame *horizontal_line(QWidget *parent) {
   QFrame *line = new QFrame(parent);
