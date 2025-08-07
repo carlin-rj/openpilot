@@ -221,4 +221,5 @@ inline static std::unordered_map<std::string, ParamKeyAttributes> keys = {
     {"DashcamServerPort", {PERSISTENT | BACKUP, STRING, "8009"}},
     {"DashcamServerEnabled", {PERSISTENT | BACKUP, BOOL, "0"}},
     {"SidebarMetricsConfig", {PERSISTENT | BACKUP, STRING, "TEMP,PANDA,CONNECT,SUNNYLINK"}},
+    {"DistractionDetectionLevel", {PERSISTENT | BACKUP, INT, "1"}},
 };
