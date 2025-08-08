@@ -137,9 +137,6 @@ class CarInterface(CarInterfaceBase):
       if candidate in CAMERA_SCC_CAR:
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_HYUNDAI_CAMERA_SCC
 
-      if 0x391 in fingerprint[0]:
-        ret.safetyConfigs[0].safetyParam |= Panda.FLAG_HYUNDAI_LFA_BTN
-
     if ret.openpilotLongitudinalControl:
       ret.safetyConfigs[-1].safetyParam |= Panda.FLAG_HYUNDAI_LONG
     if ret.flags & HyundaiFlags.HYBRID:
@@ -156,9 +153,6 @@ class CarInterface(CarInterfaceBase):
     # Detect smartMDPS
     if 0x2AA in fingerprint[0]:
       ret.minSteerSpeed = 0.
-
-    if frogpilot_toggles.taco_tune_hacks:
-      ret.safetyConfigs[0].safetyParam |= Panda.FLAG_HYUNDAI_TACO_TUNE_HACK
 
     return ret
 

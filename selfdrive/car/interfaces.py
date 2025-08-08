@@ -17,13 +17,16 @@ from openpilot.common.numpy_fast import clip
 from openpilot.common.realtime import DT_CTRL
 from openpilot.selfdrive.car import apply_hysteresis, gen_empty_fingerprint, scale_rot_inertia, scale_tire_stiffness, STD_CARGO_KG
 from openpilot.selfdrive.car.chrysler.values import CAR as ChryslerCAR, ChryslerFrogPilotFlags
+from openpilot.selfdrive.car.honda.values import CAR as HondaCAR, HONDA_BOSCH
 from openpilot.selfdrive.car.hyundai.hyundaicanfd import CanBus
 from openpilot.selfdrive.car.hyundai.values import CAR as HyundaiCAR, CANFD_CAR, HyundaiFrogPilotFlags
+from openpilot.selfdrive.car.mock.values import CAR as MockCAR
 from openpilot.selfdrive.car.toyota.values import CAR as ToyotaCAR, ToyotaFrogPilotFlags
 from openpilot.selfdrive.car.values import PLATFORMS
 from openpilot.selfdrive.controls.lib.drive_helpers import V_CRUISE_MAX, get_friction
 from openpilot.selfdrive.controls.lib.events import Events
 from openpilot.selfdrive.controls.lib.vehicle_model import VehicleModel
+from panda import Panda
 
 ButtonType = car.CarState.ButtonEvent.Type
 FrogPilotButtonType = custom.FrogPilotCarState.ButtonEvent.Type
@@ -161,49 +164,64 @@ class CarInterfaceBase(ABC):
     return ret
 
   @classmethod
-  def get_frogpilot_params(cls, candidate: str, car_fw: list[car.CarParams.CarFw], fingerprint: dict[int, dict[int, int]], CP, frogpilot_toggles: SimpleNamespace):
+  def get_frogpilot_params(cls, candidate: str, fingerprint: dict[int, dict[int, int]], car_fw: list[car.CarParams.CarFw], CP, frogpilot_toggles: SimpleNamespace):
     fp_ret = custom.FrogPilotCarParams.new_message()
 
     platform = PLATFORMS[candidate]
     fp_ret.fpFlags |= int(platform.config.flags)
 
-    if platform in ChryslerCAR:
-      if candidate == ChryslerCAR.RAM_HD_5TH_GEN:
-        if 570 not in fingerprint[0]:
-          fp_ret.fpFlags |= ChryslerFrogPilotFlags.RAM_HD_ALT_BUTTONS.value
+    if platform not in MockCAR:
+      if platform in ChryslerCAR:
+        if candidate == ChryslerCAR.RAM_HD_5TH_GEN:
+          if 570 not in fingerprint[0]:
+            fp_ret.fpFlags |= ChryslerFrogPilotFlags.RAM_HD_ALT_BUTTONS.value
 
-    elif platform in HyundaiCAR:
-      if candidate in CANFD_CAR:
-        hda2 = Ecu.adas in [fw.ecu for fw in car_fw]
+      elif platform in HondaCAR:
+        if candidate == HondaCAR.HONDA_CLARITY:
+          fp_ret.safetyConfigs[0].safetyParam |= Panda.FLAG_HONDA_CLARITY
 
-        if 0x1fa in fingerprint[CanBus(None, hda2, fingerprint).ECAN]:
-          fp_ret.fpFlags |= HyundaiFrogPilotFlags.NAV_MSG.value
+        if CP.enableGasInterceptor and candidate not in HONDA_BOSCH:
+          fp_ret.safetyConfigs[0].safetyParam |= Panda.FLAG_HONDA_GAS_INTERCEPTOR
 
-        fp_ret.isHDA2 = hda2
-      else:
-        if 0x391 in fingerprint[0]:
-          fp_ret.fpFlags |= HyundaiFrogPilotFlags.CAN_LFA_BTN.value
+      elif platform in HyundaiCAR:
+        if candidate in CANFD_CAR:
+          hda2 = Ecu.adas in [fw.ecu for fw in car_fw]
 
-        if 0x53E in fingerprint[2]:
-          fp_ret.fpFlags |= HyundaiFrogPilotFlags.LKAS12.value
+          if 0x1fa in fingerprint[CanBus(None, hda2, fingerprint).ECAN]:
+            fp_ret.fpFlags |= HyundaiFrogPilotFlags.NAV_MSG.value
 
-        if 0x544 in fingerprint[0]:
-          fp_ret.fpFlags |= HyundaiFrogPilotFlags.NAV_MSG.value
+          fp_ret.isHDA2 = hda2
 
-    elif platform in ToyotaCAR:
-      if candidate == ToyotaCAR.TOYOTA_PRIUS:
-        if 0x23 in fingerprint[0]:
-          fp_ret.fpFlags |= ToyotaFrogPilotFlags.ZSS.value
+          if frogpilot_toggles.taco_tune_hacks:
+            fp_ret.safetyConfigs[0].safetyParam |= Panda.FLAG_HYUNDAI_TACO_TUNE_HACK
+        else:
+          if 0x391 in fingerprint[0]:
+            fp_ret.fpFlags |= HyundaiFrogPilotFlags.CAN_LFA_BTN.value
+            fp_ret.safetyConfigs[0].safetyParam |= Panda.FLAG_HYUNDAI_LFA_BTN
 
-    if CP.steerControlType != car.CarParams.SteerControlType.angle:
-      if CP.lateralTuning.which() == "pid" and (frogpilot_toggles.force_torque_controller or frogpilot_toggles.nnff or frogpilot_toggles.nnff_lite):
-        CarInterfaceBase.configure_torque_tune(candidate, fp_ret.lateralTuning)
-      elif CP.lateralTuning.which() == "torque":
-        CarInterfaceBase.configure_torque_tune(candidate, fp_ret.lateralTuning)
-      else:
-        fp_ret.lateralTuning.init("pid")
+          if 0x53E in fingerprint[2]:
+            fp_ret.fpFlags |= HyundaiFrogPilotFlags.LKAS12.value
 
-    fp_ret.openpilotLongitudinalControlDisabled = frogpilot_toggles.disable_openpilot_long
+          if 0x544 in fingerprint[0]:
+            fp_ret.fpFlags |= HyundaiFrogPilotFlags.NAV_MSG.value
+
+      elif platform in ToyotaCAR:
+        if candidate == ToyotaCAR.TOYOTA_PRIUS:
+          if 0x23 in fingerprint[0]:
+            fp_ret.fpFlags |= ToyotaFrogPilotFlags.ZSS.value
+
+        if CP.enableGasInterceptor:
+          fp_ret.safetyConfigs[0].safetyParam |= Panda.FLAG_TOYOTA_GAS_INTERCEPTOR
+
+      if CP.steerControlType != car.CarParams.SteerControlType.angle:
+        if CP.lateralTuning.which() == "pid" and (frogpilot_toggles.force_torque_controller or frogpilot_toggles.nnff or frogpilot_toggles.nnff_lite):
+          CarInterfaceBase.configure_torque_tune(candidate, fp_ret.lateralTuning)
+        elif CP.lateralTuning.which() == "torque":
+          CarInterfaceBase.configure_torque_tune(candidate, fp_ret.lateralTuning)
+        else:
+          fp_ret.lateralTuning.init("pid")
+
+      fp_ret.openpilotLongitudinalControlDisabled = frogpilot_toggles.disable_openpilot_long
 
     return fp_ret
 
