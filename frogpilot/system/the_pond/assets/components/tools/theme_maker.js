@@ -42,7 +42,15 @@ const fileStore = {
 const state = reactive({
   themeName: "",
   discordUsername: "",
-  turnSignalStyle: "Static",
+  downloadable: {
+    colors: [],
+    distance_icons: [],
+    icons: [],
+    signals: [],
+    sounds: [],
+    wheels: []
+  },
+turnSignalStyle: "Static",
   turnSignalLength: 100,
   turnSignalType: "Single Image",
   sequentialImages: [],
@@ -315,11 +323,20 @@ const loadDefaultTheme = async () => {
     }
 
     if (data.sequentialImages && data.sequentialImages.length > 0) {
-      state.sequentialImages = data.sequentialImages;
+      state.sequentialImages = (data.sequentialImages || []).map(getFileName);
       state.imageFileNames.turnSignal = data.theme_names.turnSignals || "Active";
     }
 
-    const fetchActive = async (relPath) => {
+      const getFileName = (val) => {
+    if (!val) return "";
+    if (typeof val === "string") return val;
+    const tryProps = [val.name, val.filename, val.fileName, val.file, val.path, val.url];
+    const first = tryProps.find(Boolean);
+    if (typeof first === "string") return first.split("/").pop();
+    try { return String(val); } catch { return ""; }
+  };
+
+const fetchActive = async (relPath) => {
       const res = await fetch(`/api/themes/asset/__active__/${relPath}?type=active`);
       if (!res.ok) return null;
       const blob = await res.blob();
@@ -327,19 +344,19 @@ const loadDefaultTheme = async () => {
     };
 
     if (data.images?.turnSignal) {
-      const f = await fetchActive(`signals/${data.images.turnSignal}`);
+      const f = await fetchActive(`signals/${getFileName(data.images.turnSignal)}`);
       if (f) fileStore.images.turnSignal = f;
     }
 
     if (data.images?.turnSignalBlindspot) {
-      const f = await fetchActive(`signals/${data.images.turnSignalBlindspot}`);
+      const f = await fetchActive(`signals/${getFileName(data.images.turnSignalBlindspot)}`);
       if (f) fileStore.images.turnSignalBlindspot = f;
     }
 
     fileStore.sequentialFiles = [];
     if (Array.isArray(data.sequentialImages) && data.sequentialImages.length) {
       for (const img of data.sequentialImages) {
-        const f = await fetchActive(`signals/${img}`);
+        const f = await fetchActive(`signals/${getFileName(img)}`);
         if (f) fileStore.sequentialFiles.push(f);
       }
     }
@@ -379,15 +396,61 @@ const loadDefaultTheme = async () => {
   }
 };
 
+const fetchDownloadables = async () => {
+  const keys = {
+    colors: "DownloadableColors",
+    distance_icons: "DownloadableDistanceIcons",
+    icons: "DownloadableIcons",
+    signals: "DownloadableSignals",
+    sounds: "DownloadableSounds",
+    wheels: "DownloadableWheels"
+  };
+  const parseList = s => (s || "").split(",").map(v => v.trim()).filter(Boolean);
+  for (const [slot, param] of Object.entries(keys)) {
+    const r = await fetch(`/api/params?key=${encodeURIComponent(param)}`);
+    const txt = await r.text();
+    state.downloadable[slot] = parseList(txt);
+  }
+};
+
+
 (async () => {
   try {
     const response = await fetch("/api/params?key=DiscordUsername");
     state.discordUsername = await response.text();
     await loadDefaultTheme();
+    await fetchDownloadables();
+
   } catch {}
 })();
 
 export function ThemeMaker() {
+  const normalize = (str) => (str || "")
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const isDownloadable = (tab, name) => {
+    const map = { colors: "colors", distance_icons: "distance_icons", icons: "icons", sounds: "sounds", steering_wheel: "wheels", turn_signals: "signals" };
+    const key = map[tab] || tab;
+    const list = state.downloadable[key] || [];
+    const target = normalize(name);
+    return list.some(v => normalize(v) === target);
+  };
+
+  const sortThemesAlphabetically = () => {
+    state.themes.sort((a, b) => {
+      const an = (a?.name || "").toString();
+      const bn = (b?.name || "").toString();
+      return an.localeCompare(bn, undefined, { sensitivity: "base", numeric: true });
+    });
+  };
+
+
+
   const hasDistanceIcons = () => Object.values(fileStore.images.distanceIcons).some(f => f) || Object.values(state.imageFileNames.distanceIcons).some(name => name);
   const hasIcons = () => ["homeButton", "settingsButton"].some(key => fileStore.images[key] || state.imageFileNames[key]);
   const hasSounds = () => Object.values(fileStore.sounds).some(f => f) || Object.values(state.soundFileNames).some(name => name);
@@ -635,7 +698,116 @@ export function ThemeMaker() {
     const response = await fetch("/api/themes/list");
     const data = await response.json();
     state.themes = data.themes;
+    mergeDownloadablesIntoThemes();
+    sortThemesAlphabetically();
     state.showManageThemesModal = true;
+  };
+
+  const mergeDownloadablesIntoThemes = () => {
+    const byName = new Map();
+    const norm = (s) => (s || "")
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    for (const t of state.themes) byName.set(norm(t.name), t);
+
+    const tabToFlag = {
+      colors: "hasColors",
+      distance_icons: "hasDistanceIcons",
+      icons: "hasIcons",
+      sounds: "hasSounds",
+      steering_wheel: "hasSteeringWheel",
+      turn_signals: "hasTurnSignals"
+    };
+
+
+    const addIfMissing = (bucketKey, tabName) => {
+      const list = state.downloadable[bucketKey] || [];
+      for (const name of list) {
+        const key = norm(name);
+        if (!byName.has(key)) {
+          const t = {
+            name,
+            type: "holiday",
+            path: encodeURIComponent(name),
+            is_user_created: false,
+          };
+          for (const flag of Object.values(tabToFlag)) t[flag] = false;
+          t[tabToFlag[tabName]] = true;
+          state.themes.push(t);
+          byName.set(key, t);
+        } else {
+          const t = byName.get(key);
+          t[tabToFlag[tabName]] = true;
+          if (t.type !== "holiday") t.type = "holiday";
+        }
+      }
+    };
+
+    addIfMissing("colors", "colors");
+    addIfMissing("distance_icons", "distance_icons");
+    addIfMissing("icons", "icons");
+    addIfMissing("sounds", "sounds");
+    addIfMissing("wheels", "steering_wheel");
+    addIfMissing("signals", "turn_signals");
+  };
+
+  const refreshThemesAndDownloadables = async () => {
+    const r = await fetch("/api/themes/list");
+    const data = await r.json();
+    state.themes = data.themes;
+    mergeDownloadablesIntoThemes();
+    sortThemesAlphabetically();
+    await fetchDownloadables();
+  };
+
+  const pollDownloadProgress = async () => {
+    return new Promise((resolve) => {
+      const timer = setInterval(async () => {
+        try {
+          const r = await fetch("/api/params?key=ThemeDownloadProgress");
+          const txt = (await r.text()) || "";
+          if (!txt) return;
+          if (/Downloaded!/i.test(txt)) {
+            clearInterval(timer);
+            resolve({ ok: true, status: "done" });
+          } else if (/failed|cancelled/i.test(txt)) {
+            clearInterval(timer);
+            resolve({ ok: false, status: txt });
+          }
+        } catch {}
+      }, 1000);
+    });
+  };
+
+  const startAssetDownload = async (tab, displayName) => {
+    if (!displayName) return;
+    state.isLoadingAsset = true;
+    try {
+      const res = await fetch("/api/themes/download_asset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ component: tab, name: displayName })
+      });
+      if (!res.ok) {
+        showSnackbar("Unable to start download.", "error");
+        state.isLoadingAsset = false;
+        return;
+      }
+      showSnackbar(`Downloading ${tab.replace('_', ' ')} for the "${displayName}" theme...`);
+      const result = await pollDownloadProgress();
+      await refreshThemesAndDownloadables();
+      if (result.ok) {
+        showSnackbar(`${displayName} installed!`);
+      } else {
+        showSnackbar(`Download ${result.status}`, "error");
+      }
+    } finally {
+      state.isLoadingAsset = false;
+    }
   };
 
   const loadThemeAsset = async (theme, assetType) => {
@@ -1145,7 +1317,16 @@ export function ThemeMaker() {
                   <button class="delete-theme-button" @click="${(e) => { e.stopPropagation(); confirmDelete(theme); }}">
                     <i class="bi bi-trash-fill"></i>
                   </button>
-                ` : ""}
+                ` : (isDownloadable(state.activeTab, theme.name) ? html`
+                  <button class="download-theme-button"
+                    @click="${async (e) => {
+                      e.stopPropagation();
+                      if (state.isLoadingAsset) return;
+                      await startAssetDownload(state.activeTab, theme.name);
+                    }}">
+                    <i class="bi bi-download"></i>
+                  </button>
+                ` : "")}
               </div>
             `)}
           </div>
