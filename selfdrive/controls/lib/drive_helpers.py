@@ -5,6 +5,7 @@ from cereal import car, log
 from openpilot.common.conversions import Conversions as CV
 from openpilot.common.numpy_fast import clip, interp
 from openpilot.common.realtime import DT_CTRL, DT_MDL
+from openpilot.selfdrive.modeld.constants import ModelConstants
 
 # WARNING: this value was determined based on the model's training distribution,
 #          model predictions above this speed can be unpredictable
@@ -18,6 +19,7 @@ IMPERIAL_INCREMENT = round(CV.MPH_TO_KPH, 1)  # round here to avoid rounding err
 
 MIN_SPEED = 1.0
 CONTROL_N = 17
+CONTROL_N_T_IDX = ModelConstants.T_IDXS[:CONTROL_N]
 CAR_ROTATION_RADIUS = 0.0
 # This is a turn radius smaller than most cars can achieve
 MAX_CURVATURE = 0.2
@@ -212,13 +214,18 @@ def get_speed_error(modelV2: log.ModelDataV2, v_ego: float) -> float:
   return 0.0
 
 
-def get_accel_from_plan(speeds, accels, t_idxs, action_t=DT_MDL, vEgoStopping=0.05):
-  if len(speeds) == len(t_idxs):
-    v_now = speeds[0]
-    a_now = accels[0]
-    v_target = np.interp(action_t, t_idxs, speeds)
-    a_target = 2 * (v_target - v_now) / (action_t) - a_now
-    v_target_1sec = np.interp(action_t + 1.0, t_idxs, speeds)
+def get_accel_from_plan(speeds, accels, longitudinalActuatorDelay, vEgoStopping):
+  if len(speeds) == CONTROL_N:
+    v_target_now = interp(DT_MDL, CONTROL_N_T_IDX, speeds)
+    a_target_now = interp(DT_MDL, CONTROL_N_T_IDX, accels)
+
+    v_target = interp(longitudinalActuatorDelay + DT_MDL, CONTROL_N_T_IDX, speeds)
+    if v_target != v_target_now:
+      a_target = 2 * (v_target - v_target_now) / longitudinalActuatorDelay - a_target_now
+    else:
+      a_target = a_target_now
+
+    v_target_1sec = interp(longitudinalActuatorDelay + DT_MDL + 1.0, CONTROL_N_T_IDX, speeds)
   else:
     v_target = 0.0
     v_target_1sec = 0.0
