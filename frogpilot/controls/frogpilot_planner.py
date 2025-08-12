@@ -19,6 +19,7 @@ from openpilot.frogpilot.controls.lib.frogpilot_acceleration import FrogPilotAcc
 from openpilot.frogpilot.controls.lib.frogpilot_events import FrogPilotEvents
 from openpilot.frogpilot.controls.lib.frogpilot_following import FrogPilotFollowing
 from openpilot.frogpilot.controls.lib.frogpilot_vcruise import FrogPilotVCruise
+from openpilot.frogpilot.controls.lib.weather_checker import WeatherChecker
 
 class FrogPilotPlanner:
   def __init__(self, ThemeManager):
@@ -27,6 +28,7 @@ class FrogPilotPlanner:
     self.frogpilot_events = FrogPilotEvents(self, ThemeManager)
     self.frogpilot_following = FrogPilotFollowing(self)
     self.frogpilot_vcruise = FrogPilotVCruise(self)
+    self.frogpilot_weather_checker = WeatherChecker()
 
     with car.CarParams.from_bytes(params.get("CarParams", block=True)) as msg:
       self.CP = msg
@@ -48,7 +50,7 @@ class FrogPilotPlanner:
     self.time_to_curve = 0
     self.v_cruise = 0
 
-  def update(self, sm, frogpilot_toggles):
+  def update(self, now, time_validated, sm, frogpilot_toggles):
     self.lead_one = sm["frogpilotRadarState"].leadOne
 
     v_cruise = min(sm["controlsState"].vCruise, V_CRUISE_MAX) * CV.KPH_TO_MS
@@ -114,6 +116,9 @@ class FrogPilotPlanner:
 
     self.v_cruise = self.frogpilot_vcruise.update(gps_position, v_cruise, v_ego, sm, frogpilot_toggles)
 
+    if time_validated:
+      self.frogpilot_weather_checker.update_weather(gps_position, now)
+
   def update_lead_status(self):
     following_lead = self.lead_one.status
     following_lead &= self.lead_one.dRel < self.model_length + STOP_DISTANCE
@@ -177,5 +182,8 @@ class FrogPilotPlanner:
     frogpilotPlan.trackingLead = self.tracking_lead
 
     frogpilotPlan.vCruise = self.v_cruise
+
+    frogpilotPlan.weatherDaytime = self.frogpilot_weather_checker.is_daytime
+    frogpilotPlan.weatherId = self.frogpilot_weather_checker.weather_id
 
     pm.send("frogpilotPlan", frogpilot_plan_send)

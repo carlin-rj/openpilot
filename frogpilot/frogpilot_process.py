@@ -121,7 +121,7 @@ def frogpilot_thread():
       params_memory.put_bool("IsOnroad", True)
 
     if started and sm.updated["modelV2"]:
-      frogpilot_planner.update(sm, frogpilot_toggles)
+      frogpilot_planner.update(now, time_validated, sm, frogpilot_toggles)
       frogpilot_planner.publish(sm, pm, theme_manager.theme_updated, toggles_updated)
 
       frogpilot_tracking.update(sm)
