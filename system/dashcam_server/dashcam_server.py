@@ -11,14 +11,14 @@ import logging
 import tempfile
 import shutil
 import time
+import subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 from dataclasses import dataclass, asdict
 
-from aiohttp import web, WSMsgType
+from aiohttp import web
 from aiohttp.web_fileresponse import FileResponse
-from aiohttp.web import StreamResponse
 
 from openpilot.system.hardware.hw import Paths
 from openpilot.common.params import Params
@@ -302,6 +302,7 @@ class DashcamServer:
         self.app.router.add_get('/api/info', self.get_dashcam_info)
         self.app.router.add_get('/api/routes', self.get_routes)
         self.app.router.add_get('/api/routes/{route_name}', self.get_route_detail)
+        self.app.router.add_get('/api/routes/simple/{route_name}', self.get_route_simple_detail)
         self.app.router.add_get('/api/segments', self.get_segments)
         self.app.router.add_get('/api/segments/{segment_id}', self.get_segment_detail)
         self.app.router.add_post('/api/segments/delete', self.delete_segments)
@@ -417,6 +418,36 @@ class DashcamServer:
         except Exception as e:
             self.logger.error(f"获取路线列表失败: {e}")
             return web.json_response({'error': str(e)}, status=500)
+
+    async def get_route_simple_detail(self, request):
+      """获取路线详情API"""
+      route_name = request.match_info['route_name']
+
+      try:
+        route = self.file_manager.get_route_by_name(route_name)
+        if not route:
+          return web.json_response({'error': '路线不存在'}, status=404)
+
+        # 转换为可序列化的格式
+        route_dict = asdict(route)
+        route_dict['start_time'] = route.start_time.isoformat()
+        route_dict['end_time'] = route.end_time.isoformat()
+
+        # 转换segments并获取video_info
+        serializable_segments = []
+        for seg in route.segments:
+          seg_dict = asdict(seg)
+          seg_dict['timestamp'] = seg.timestamp.isoformat()
+          serializable_segments.append(seg_dict)
+
+        route_dict['segments'] = serializable_segments
+
+        return web.json_response(route_dict)
+
+      except Exception as e:
+        self.logger.error(f"获取路线详情失败: {e}")
+        return web.json_response({'error': str(e)}, status=500)
+
 
     async def get_route_detail(self, request):
         """获取路线详情API"""
@@ -792,6 +823,28 @@ class DashcamServer:
             self.logger.error(f"获取视频信息失败: {e}")
             return web.json_response({'error': '获取视频信息失败'}, status=500)
 
+    def ffmpeg_mp4_wrap_process_builder(self, filename):
+        """构建ffmpeg进程用于MP4流式传输"""
+        is_raw_hevc = filename.rsplit(".", 1)[-1] == "hevc"
+
+        command = [
+          "ffmpeg",
+          "-hide_banner",
+          "-loglevel", "error",
+          "-probesize", "1M",
+          "-analyzeduration", "1M",
+          *(["-f", "hevc"] if is_raw_hevc else []),
+          "-i", filename,
+          "-c", "copy",
+          "-map", "0",
+          *(["-vtag", "hvc1"] if is_raw_hevc else []),
+          "-f", "mp4",
+          "-movflags", "empty_moov",
+          "-"
+        ]
+
+        return subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
     async def stream_video(self, request):
         """原有的直接视频流方法，作为备用"""
         segment_id = request.match_info['segment_id']
@@ -805,45 +858,13 @@ class DashcamServer:
         if not Path(video_path).exists():
             return web.json_response({'error': '视频文件不存在'}, status=404)
 
-        # 启动 ffmpeg 子进程，实时转码
-        cmd = [
-            "ffmpeg",
-            "-i", video_path,
-            "-f", "mp4",
-            "-vcodec", "libx264",
-            "-preset", "ultrafast",
-            "-g", "48",  # 关键帧间隔
-            "-movflags", "frag_keyframe+default_base_moof",
-            "-an",
-            "pipe:1"
-        ]
-
-        proc = await asyncio.create_subprocess_exec(
-            *cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.DEVNULL
-        )
-
-        resp = StreamResponse(
-            status=200,
-            reason='OK',
-            headers={
-                'Content-Type': 'video/mp4',
-                'Transfer-Encoding': 'chunked',
-            }
-        )
-        await resp.prepare(request)
-
         try:
-            while True:
-                chunk = await proc.stdout.read(8192)
-                if not chunk:
-                    break
-                await resp.write(chunk)
-        finally:
-            await proc.wait()
-
-        return resp
+            process = self.ffmpeg_mp4_wrap_process_builder(video_path)
+            video_data = process.stdout.read()
+            return web.Response(body=video_data, status=200, content_type="video/mp4")
+        except Exception as e:
+            self.logger.error(f"视频处理失败 {video_path}: {e}")
+            return web.json_response({"error": "视频处理失败"}, status=500)
 
     async def _cleanup_hls_cache(self):
         """清理过期的HLS缓存"""
