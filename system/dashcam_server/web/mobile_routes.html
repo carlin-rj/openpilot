@@ -285,7 +285,8 @@
         <!-- 视图切换 -->
         <div class="view-toggle">
             <button id="route-view-btn" class="btn active">路线视图</button>
-            <button id="segment-view-btn" class="btn">段视图</button>
+            <button id="segment-view-btn" style="display: none" class="btn">段视图</button>
+            <button id="driving-view-btn" class="btn">实时画面</button>
         </div>
 
         <!-- 筛选器 -->
@@ -362,6 +363,12 @@
                 document.getElementById('segment-view-btn').addEventListener('click', () => {
                     this.switchView('segments');
                 });
+
+                //driving-view-btn
+                document.getElementById('driving-view-btn').addEventListener('click', () => {
+                    this.switchView('driving');
+                });
+
             }
 
             switchView(view) {
@@ -371,11 +378,14 @@
                 // 更新按钮状态
                 document.getElementById('route-view-btn').classList.toggle('active', view === 'routes');
                 document.getElementById('segment-view-btn').classList.toggle('active', view === 'segments');
+                document.getElementById('driving-view-btn').classList.toggle('active', view === 'driving');
 
                 if (view === 'routes') {
                     this.loadRoutes();
-                } else {
+                } else if(view === 'segments') {
                     window.location.href = '/mobile.html';
+                } else {
+                     window.location.href = '/driving.html';
                 }
             }
 

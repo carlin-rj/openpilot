@@ -90,6 +90,7 @@ protected:
   ButtonParamControl *long_personality_setting;
   ButtonParamControl *distraction_detection_level;
   ButtonControl *dashcam_port_btn;
+  ButtonParamControl *live_stream_settings;
 
 
   virtual void updateToggles();

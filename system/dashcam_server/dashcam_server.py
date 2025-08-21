@@ -277,15 +277,31 @@ class VideoFileManager:
             date_range=(earliest_time, latest_time)
         )
 
-class DashcamServer:
-    """行车记录仪服务器"""
+@web.middleware
+async def cors_middleware(request, handler):
+  # 处理 CORS 预检
+  if request.method == "OPTIONS":
+    return web.Response(status=200, headers={
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Max-Age": "86400",
+    })
 
+  # 处理正常请求
+  response = await handler(request)
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+  response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+  return response
+
+class DashcamServer:
     def __init__(self, port: int = DEFAULT_PORT, log_root: str = None):
         self.port = port
         if log_root is None:
           log_root = Paths.log_root()
         self.file_manager = VideoFileManager(log_root)
-        self.app = web.Application()
+        self.app = web.Application(middlewares=[cors_middleware])
         self.logger = logging.getLogger(__name__)
         # HLS临时文件目录
         self.hls_temp_dir = Path(tempfile.gettempdir()) / "dashcam_hls"
@@ -299,6 +315,7 @@ class DashcamServer:
     def _setup_routes(self):
         """设置路由"""
         # API路由
+        self.app.router.add_get('/api/driving_init', self.driving_init)
         self.app.router.add_get('/api/info', self.get_dashcam_info)
         self.app.router.add_get('/api/routes', self.get_routes)
         self.app.router.add_get('/api/routes/{route_name}', self.get_route_detail)
@@ -325,6 +342,7 @@ class DashcamServer:
         self.app.router.add_get('/mobile.html', self.mobile_handler)
         self.app.router.add_get('/mobile_routes.html', self.route_view_handler)
         self.app.router.add_get('/route_player.html', self.route_player_handler)
+        self.app.router.add_get('/driving.html', self.driving_view_handler)
 
     async def route_demo_handler(self, request):
         static_path = Path(__file__).parent / 'web' / 'demo.html'
@@ -350,6 +368,11 @@ class DashcamServer:
         static_path = Path(__file__).parent / 'web' / 'route_player.html'
         return FileResponse(static_path)
 
+    async def driving_view_handler(self, request):
+      """driving_view_handler"""
+      static_path = Path(__file__).parent / 'web' / 'driving.html'
+      return FileResponse(static_path)
+
     async def get_dashcam_info(self, request):
         """获取行车记录仪信息API"""
         try:
@@ -367,6 +390,23 @@ class DashcamServer:
         except Exception as e:
             self.logger.error(f"获取行车记录仪信息失败: {e}")
             return web.json_response({'error': str(e)}, status=500)
+
+
+    async def driving_init(self, request):
+        """API endpoint to provide initial data to the client."""
+        try:
+          params = Params()
+          is_metric = params.get_bool("IsMetric")
+          raw_val = int(params.get("DevDashy") or 0)
+          if raw_val == 1:
+              dev_dashy = 2
+          else:
+              dev_dashy = 0
+          return web.json_response({'is_metric': is_metric, 'dp_dev_dashy': dev_dashy})
+        except Exception as e:
+          self.logger.error(f"Error fetching initial data: {e}")
+          return web.json_response({}, status=500)
+
 
     async def get_routes(self, request):
         """获取路线列表API"""

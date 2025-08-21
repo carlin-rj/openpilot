@@ -101,9 +101,6 @@ def and_(*fns):
 def dashy(started: bool, params: Params, CP: car.CarParams) -> bool:
   return int(params.get("DevDashy") or 0) > 0
 
-def dashy_with_video(started: bool, params: Params, CP: car.CarParams) -> bool:
-  return int(params.get("DevDashy") or 0) == 2
-
 procs = [
   DaemonProcess("manage_athenad", "system.athena.manage_athenad", "AthenadPid"),
 
@@ -111,7 +108,7 @@ procs = [
   NativeProcess("encoderd", "system/loggerd", ["./encoderd"], only_onroad),
   # NativeProcess("stream_encoderd", "system/loggerd", ["./encoderd", "--stream"], notcar),
   NativeProcess("stream_encoderd", "system/loggerd", ["./encoderd", "--stream"],
-                or_(notcar, and_(dashy_with_video, only_onroad))),
+                or_(notcar, and_(dashy, only_onroad))),
   PythonProcess("logmessaged", "system.logmessaged", always_run),
 
   NativeProcess("camerad", "system/camerad", ["./camerad"], driverview, enabled=not WEBCAM),
@@ -157,8 +154,8 @@ procs = [
   # debug procs
   # NativeProcess("bridge", "cereal/messaging", ["./bridge"], notcar),
   # PythonProcess("webrtcd", "system.webrtc.webrtcd", notcar),
-  NativeProcess("bridge", "cereal/messaging", ["./bridge"], or_(notcar, and_(dashy_with_video, only_onroad))),
-  PythonProcess("webrtcd", "system.webrtc.webrtcd", or_(notcar, and_(dashy_with_video, only_onroad))),
+  NativeProcess("bridge", "cereal/messaging", ["./bridge"], or_(notcar, and_(dashy, only_onroad))),
+  PythonProcess("webrtcd", "system.webrtc.webrtcd", or_(notcar, and_(dashy, only_onroad))),
   PythonProcess("webjoystick", "tools.bodyteleop.web", notcar),
   PythonProcess("joystick", "tools.joystick.joystick_control", and_(joystick, iscar)),
 

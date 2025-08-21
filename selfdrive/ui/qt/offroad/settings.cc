@@ -165,6 +165,18 @@ TogglesPanel::TogglesPanel(SettingsWindow *parent) : ListWidget(parent) {
         }
       });
       addItem(dashcam_port_btn);
+
+//      std::vector<std::pair<int, QString>> live_stream_options{
+//        {0, tr("Off")},
+//        {2, tr("Open")},
+//      };
+      std::vector<QString> live_stream_options{tr("Off"), tr("Open")};
+      live_stream_settings = new ButtonParamControl("DevDashy", tr("Live stream"),
+          tr("Enable or disable the live streaming feature of Dashy."
+          "When enabled, you can access the camera feed in real-time through the web UI."
+          "Make sure your device is connected to the same network."),
+          "", live_stream_options);
+      addItem(live_stream_settings);
     }
   }
 
