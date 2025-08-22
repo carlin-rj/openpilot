@@ -1,10 +1,10 @@
-const TIMEOUT_MS = 500;
-const MIN_DISTANCE = 10;
-const MAX_POINTS = 100;
-const ALPHA_THRESHOLD = 0.5;
-const FRAME_RATE = 60;
-const FRAME_TIME = 1 / 30;
-const LANE_LINE_GRADIENT_COLORS = [{
+const t = 500;
+const e = 10;
+const i = 100;
+const a = 0.5;
+const s = 60;
+const n = 1 / 30;
+const r = [{
   r: 13,
   g: 248,
   b: 122,
@@ -20,7 +20,7 @@ const LANE_LINE_GRADIENT_COLORS = [{
   b: 92,
   a: 0
 }];
-const PATH_GRADIENT_COLORS = [{
+const o = [{
   r: 242,
   g: 242,
   b: 242,
@@ -36,23 +36,23 @@ const PATH_GRADIENT_COLORS = [{
   b: 242,
   a: 0
 }];
-function multiplyMatrices(matrixA, matrixB) {
-  const result = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-  for (let row = 0; row < 3; row++) {
-    for (let col = 0; col < 3; col++) {
-      result[row][col] = matrixA[row][0] * matrixB[0][col] + matrixA[row][1] * matrixB[1][col] + matrixA[row][2] * matrixB[2][col];
+function l(t, e) {
+  const i = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  for (let a = 0; a < 3; a++) {
+    for (let s = 0; s < 3; s++) {
+      i[a][s] = t[a][0] * e[0][s] + t[a][1] * e[1][s] + t[a][2] * e[2][s];
     }
   }
-  return result;
+  return i;
 }
-function transformPoint3D(matrix, point) {
-  return [matrix[0][0] * point[0] + matrix[0][1] * point[1] + matrix[0][2] * point[2], matrix[1][0] * point[0] + matrix[1][1] * point[1] + matrix[1][2] * point[2], matrix[2][0] * point[0] + matrix[2][1] * point[1] + matrix[2][2] * point[2]];
+function d(t, e) {
+  return [t[0][0] * e[0] + t[0][1] * e[1] + t[0][2] * e[2], t[1][0] * e[0] + t[1][1] * e[1] + t[1][2] * e[2], t[2][0] * e[0] + t[2][1] * e[1] + t[2][2] * e[2]];
 }
-function perspectiveProject(matrix, x, y, z) {
-  const projectedX = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z;
-  const projectedY = matrix[1][0] * x + matrix[1][1] * y + matrix[1][2] * z;
-  const projectedZ = matrix[2][0] * x + matrix[2][1] * y + matrix[2][2] * z;
-  if (Math.abs(projectedZ) < 0.000001) {
+function h(t, e, i, a) {
+  const s = t[0][0] * e + t[0][1] * i + t[0][2] * a;
+  const n = t[1][0] * e + t[1][1] * i + t[1][2] * a;
+  const r = t[2][0] * e + t[2][1] * i + t[2][2] * a;
+  if (Math.abs(r) < 0.000001) {
     return {
       x: 0,
       y: 0,
@@ -61,9 +61,9 @@ function perspectiveProject(matrix, x, y, z) {
     };
   } else {
     return {
-      x: projectedX / projectedZ,
-      y: projectedY / projectedZ,
-      z: projectedZ,
+      x: s / r,
+      y: n / r,
+      z: r,
       valid: true
     };
   }
@@ -2240,7 +2240,7 @@ function Rt(t) {
   if (ft) {
     ft.style.display = e || i ? "none" : "";
   }
-  let a = "files";
+  let a = "driving";
   if (Q.get("ui.currentPage") !== a) {
     It(a);
   }
