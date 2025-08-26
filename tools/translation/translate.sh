@@ -49,6 +49,7 @@ show_help() {
     echo "示例:"
     echo "  $0 test       # 测试翻译器"
     echo "  $0 deepl      # 使用DeepL翻译"
+    echo "  $0 google     # 使用google翻译"
     echo "  $0 full       # 完整翻译流程"
 }
 
@@ -87,6 +88,11 @@ deepl_translation() {
     python3 multi_translator.py --auto-translate --language zh-CHS --translator deepl
 }
 
+google_translation() {
+    print_info "使用Google翻译中文..."
+    python3 multi_translator.py --auto-translate --language zh-CHS --translator google
+}
+
 # 自动翻译
 auto_translation() {
     print_info "自动选择翻译器翻译中文..."
@@ -119,6 +125,10 @@ main() {
         "deepl")
             check_dependencies
             deepl_translation
+            ;;
+        "google")
+            check_dependencies
+            google_translation
             ;;
         "auto")
             check_dependencies
