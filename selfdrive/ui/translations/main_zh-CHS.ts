@@ -121,7 +121,7 @@ Please use caution when using this feature. Only use the blinker when traffic an
     </message>
     <message>
         <source>s</source>
-        <translation type="unfinished">s</translation>
+        <translation>s</translation>
     </message>
     <message>
         <source>Off</source>
@@ -639,11 +639,11 @@ This is the time after which settings UI closes automatically if user is not int
     <name>ExitOffroadButton</name>
     <message>
         <source>Are you sure you want to exit Always Offroad mode?</source>
-        <translation type="unfinished">​​确定要退出“始终离线模式”吗？​​</translation>
+        <translation>​​确定要退出“始终离线模式”吗？​​</translation>
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished">确认</translation>
+        <translation>确认</translation>
     </message>
     <message>
         <source>EXIT ALWAYS OFFROAD MODE</source>
@@ -1045,11 +1045,11 @@ Firehose Mode allows you to maximize your training data uploads to improve openp
     </message>
     <message>
         <source>h</source>
-        <translation type="unfinished"></translation>
+        <translation>h</translation>
     </message>
     <message>
         <source>m</source>
-        <translation type="unfinished">m</translation>
+        <translation>m</translation>
     </message>
     <message>
         <source> (default)</source>
@@ -1276,7 +1276,7 @@ The default software delay value is 0.2</source>
     </message>
     <message>
         <source>REFRESH</source>
-        <translation type="unfinished">刷新</translation>
+        <translation>刷新</translation>
     </message>
     <message>
         <source>Fetching Latest Models</source>
@@ -1481,7 +1481,7 @@ The default software delay value is 0.2</source>
     </message>
     <message>
         <source>Snooze Update</source>
-        <translation type="unfinished">暂停更新</translation>
+        <translation>暂停更新</translation>
     </message>
 </context>
 <context>
@@ -1766,11 +1766,11 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>Confirm</source>
-        <translation type="unfinished">确认</translation>
+        <translation>确认</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>No vehicles found for query: %1</source>
@@ -1956,7 +1956,7 @@ This may take up to a minute.</source>
     <name>SettingsWindowSP</name>
     <message>
         <source>×</source>
-        <translation type="unfinished">×</translation>
+        <translation>×</translation>
     </message>
     <message>
         <source>Device</source>
@@ -1988,11 +1988,11 @@ This may take up to a minute.</source>
     </message>
     <message>
         <source>Developer</source>
-        <translation type="unfinished">开发人员</translation>
+        <translation>开发人员</translation>
     </message>
     <message>
         <source>Firehose</source>
-        <translation type="unfinished">训练上传</translation>
+        <translation>训练上传</translation>
     </message>
     <message>
         <source>Steering</source>
@@ -2338,7 +2338,7 @@ This may take up to a minute.</source>
     </message>
     <message>
         <source>Select a branch</source>
-        <translation type="unfinished">选择分支</translation>
+        <translation>选择分支</translation>
     </message>
     <message>
         <source>Disable Updates</source>
@@ -2354,7 +2354,7 @@ This may take up to a minute.</source>
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="unfinished">重启</translation>
+        <translation>重启</translation>
     </message>
     <message>
         <source>When enabled, software updates will be disabled.&lt;br&gt;&lt;b&gt;This requires a reboot to take effect.&lt;/b&gt;</source>
@@ -2648,7 +2648,7 @@ Data</source>
     </message>
     <message>
         <source>PAIR</source>
-        <translation type="unfinished">配对</translation>
+        <translation>配对</translation>
     </message>
     <message>
         <source>Pair your GitHub account to grant your device sponsor benefits, including API access on sunnylink.</source>
@@ -3033,15 +3033,15 @@ Data</source>
     </message>
     <message>
         <source>8082</source>
-        <translation type="unfinished">5G {8082?}</translation>
+        <translation>8082</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished">关闭</translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">开启</translation>
+        <translation>开启</translation>
     </message>
     <message>
         <source>Live stream</source>
@@ -3056,11 +3056,11 @@ Data</source>
     <name>TreeOptionDialog</name>
     <message>
         <source>Select</source>
-        <translation type="unfinished">选择</translation>
+        <translation>选择</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">取消</translation>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -3154,7 +3154,7 @@ Data</source>
     </message>
     <message>
         <source> Changing this setting will restart openpilot if the car is powered on.</source>
-        <translation type="unfinished">修改此设置将在车辆通电时重启openpilot系统。</translation>
+        <translation>修改此设置将在车辆通电时重启openpilot系统。</translation>
     </message>
 </context>
 <context>
