@@ -507,22 +507,22 @@ class EnhancedTranslationManager:
         """保存TS文件，保持原始XML格式和实体编码"""
         # 使用ElementTree的write方法保持原始的XML实体编码
         tree.write(
-            str(file_path), 
-            encoding='utf-8', 
+            str(file_path),
+            encoding='utf-8',
             xml_declaration=True
         )
-        
+
         # 读取文件并添加DOCTYPE声明
         with open(file_path, 'r', encoding='utf-8') as fp:
             content = fp.read()
-        
+
         # 在XML声明后插入DOCTYPE声明
         if content.startswith('<?xml'):
             first_line_end = content.find('\n')
             if first_line_end != -1:
                 xml_declaration = content[:first_line_end + 1]
                 remaining_content = content[first_line_end + 1:]
-                
+
                 with open(file_path, 'w', encoding='utf-8') as fp:
                     fp.write(xml_declaration)
                     fp.write('<!DOCTYPE TS>\n')
