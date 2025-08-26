@@ -19,7 +19,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 from tools.translation.multi_translator import (
     OpenAITranslator, DeepLTranslator, BaiduTranslator, 
-    GoogleTranslator, DictionaryTranslator, MultiTranslator
+    GoogleTranslator, MultiTranslator
 )
 
 class TranslatorTester:
@@ -77,8 +77,7 @@ class TranslatorTester:
         print("=" * 60)
         
         translators = {
-            "字典翻译": DictionaryTranslator(),
-            "DeepL": DeepLTranslator(), 
+            "DeepL": DeepLTranslator(),
             "谷歌翻译": GoogleTranslator(),
             "百度翻译": BaiduTranslator(),
             "OpenAI": OpenAITranslator(),
