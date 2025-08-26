@@ -504,13 +504,29 @@ class EnhancedTranslationManager:
             print(f"❌ 处理文件时出错 {ts_file}: {e}")
 
     def _save_ts_file(self, tree: ET.ElementTree, file_path: pathlib.Path) -> None:
-        """保存TS文件"""
-        root = tree.getroot()
-
-        with open(file_path, 'w', encoding='utf-8') as fp:
-            fp.write('<?xml version="1.0" encoding="utf-8"?>\n')
-            fp.write('<!DOCTYPE TS>\n')
-            fp.write(ET.tostring(root, encoding='unicode'))
+        """保存TS文件，保持原始XML格式和实体编码"""
+        # 使用ElementTree的write方法保持原始的XML实体编码
+        tree.write(
+            str(file_path), 
+            encoding='utf-8', 
+            xml_declaration=True
+        )
+        
+        # 读取文件并添加DOCTYPE声明
+        with open(file_path, 'r', encoding='utf-8') as fp:
+            content = fp.read()
+        
+        # 在XML声明后插入DOCTYPE声明
+        if content.startswith('<?xml'):
+            first_line_end = content.find('\n')
+            if first_line_end != -1:
+                xml_declaration = content[:first_line_end + 1]
+                remaining_content = content[first_line_end + 1:]
+                
+                with open(file_path, 'w', encoding='utf-8') as fp:
+                    fp.write(xml_declaration)
+                    fp.write('<!DOCTYPE TS>\n')
+                    fp.write(remaining_content)
 
     def compile_translations(self) -> None:
         """编译TS文件为QM文件"""
