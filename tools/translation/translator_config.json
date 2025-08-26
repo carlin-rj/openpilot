@@ -1,0 +1,190 @@
+{
+  "translators": {
+    "openai": {
+      "name": "OpenAI GPT",
+      "description": "使用 OpenAI GPT 模型进行翻译，质量高但需要API密钥",
+      "requires_api_key": true,
+      "env_vars": ["OPENAI_API_KEY"],
+      "optional_env_vars": ["OPENAI_MODEL"],
+      "rate_limit": 1.0,
+      "cost": "medium",
+      "quality": "high"
+    },
+    "deepl": {
+      "name": "DeepL",
+      "description": "使用 DeepL 翻译服务，翻译质量极高",
+      "requires_api_key": false,
+      "base_url": "https://deepl.borber.top",
+      "env_vars": [],
+      "optional_env_vars": ["DEEPL_API_URL"],
+      "rate_limit": 0.5,
+      "cost": "free",
+      "quality": "very_high"
+    },
+    "baidu": {
+      "name": "百度翻译",
+      "description": "百度翻译API，对中文支持较好",
+      "requires_api_key": true,
+      "env_vars": ["BAIDU_APP_ID", "BAIDU_SECRET_KEY"],
+      "rate_limit": 0.2,
+      "cost": "low",
+      "quality": "medium"
+    },
+    "google": {
+      "name": "谷歌翻译",
+      "description": "谷歌翻译免费API，支持多种语言",
+      "requires_api_key": false,
+      "env_vars": [],
+      "rate_limit": 0.3,
+      "cost": "free",
+      "quality": "medium"
+    },
+    "dictionary": {
+      "name": "本地字典",
+      "description": "使用内置翻译字典，速度快但覆盖有限",
+      "requires_api_key": false,
+      "env_vars": [],
+      "rate_limit": 0,
+      "cost": "free",
+      "quality": "high_for_common_terms"
+    }
+  },
+  "language_mappings": {
+    "zh-CHS": {
+      "name": "中文简体",
+      "openai": "Chinese (Simplified)",
+      "deepl": "zh-CN",
+      "baidu": "zh",
+      "google": "zh-cn",
+      "youdao": "zh-CHS"
+    },
+    "zh-CHT": {
+      "name": "中文繁体", 
+      "openai": "Chinese (Traditional)",
+      "deepl": "zh-TW",
+      "baidu": "cht",
+      "google": "zh-tw",
+      "youdao": "zh-CHT"
+    },
+    "ja": {
+      "name": "日语",
+      "openai": "Japanese",
+      "deepl": "ja",
+      "baidu": "jp",
+      "google": "ja",
+      "youdao": "ja"
+    },
+    "ko": {
+      "name": "韩语",
+      "openai": "Korean",
+      "deepl": "ko", 
+      "baidu": "kor",
+      "google": "ko",
+      "youdao": "ko"
+    },
+    "fr": {
+      "name": "法语",
+      "openai": "French",
+      "deepl": "fr",
+      "baidu": "fra",
+      "google": "fr",
+      "youdao": "fr"
+    },
+    "de": {
+      "name": "德语",
+      "openai": "German",
+      "deepl": "de",
+      "baidu": "de",
+      "google": "de",
+      "youdao": "de"
+    },
+    "es": {
+      "name": "西班牙语",
+      "openai": "Spanish",
+      "deepl": "es",
+      "baidu": "spa",
+      "google": "es",
+      "youdao": "es"
+    },
+    "pt-BR": {
+      "name": "葡萄牙语（巴西）",
+      "openai": "Portuguese (Brazil)",
+      "deepl": "pt-BR",
+      "baidu": "pt",
+      "google": "pt",
+      "youdao": "pt"
+    },
+    "ar": {
+      "name": "阿拉伯语",
+      "openai": "Arabic",
+      "deepl": "ar",
+      "baidu": "ara",
+      "google": "ar",
+      "youdao": "ar"
+    },
+    "tr": {
+      "name": "土耳其语",
+      "openai": "Turkish",
+      "deepl": "tr",
+      "baidu": "tr",
+      "google": "tr",
+      "youdao": "tr"
+    },
+    "th": {
+      "name": "泰语",
+      "openai": "Thai",
+      "deepl": "th",
+      "baidu": "th",
+      "google": "th",
+      "youdao": "th"
+    },
+    "nl": {
+      "name": "荷兰语",
+      "openai": "Dutch",
+      "deepl": "nl",
+      "baidu": "nl",
+      "google": "nl",
+      "youdao": "nl"
+    },
+    "pl": {
+      "name": "波兰语",
+      "openai": "Polish", 
+      "deepl": "pl",
+      "baidu": "pl",
+      "google": "pl",
+      "youdao": "pl"
+    }
+  },
+  "quality_priorities": [
+    "dictionary",
+    "deepl", 
+    "openai",
+    "baidu",
+    "google"
+  ],
+  "fallback_chains": {
+    "zh-CHS": ["dictionary", "deepl", "baidu", "google"],
+    "zh-CHT": ["dictionary", "deepl", "baidu", "google"],
+    "ja": ["dictionary", "deepl", "openai", "google"],
+    "ko": ["dictionary", "deepl", "openai", "google"],
+    "default": ["dictionary", "deepl", "openai", "google"]
+  },
+  "common_translations": {
+    "zh-CHS": {
+      "Loading...": "加载中...",
+      "Connecting...": "连接中...",
+      "Downloading...": "下载中...",
+      "Processing...": "处理中...",
+      "Please wait": "请稍候",
+      "Error": "错误",
+      "Warning": "警告",
+      "Success": "成功",
+      "Failed": "失败",
+      "Complete": "完成",
+      "Ready": "就绪",
+      "Stopped": "已停止",
+      "Running": "运行中",
+      "Paused": "已暂停"
+    }
+  }
+}
