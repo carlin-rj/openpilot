@@ -891,6 +891,45 @@ Firehose 모드를 사용하면 훈련 데이터 업로드를 극대화하여 op
     </message>
 </context>
 <context>
+    <name>MetricsConfigControlSP</name>
+    <message>
+        <source>TEMP</source>
+        <translation type="unfinished">온도</translation>
+    </message>
+    <message>
+        <source>CPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MEMORY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STORAGE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PANDA</source>
+        <translation type="unfinished">없음</translation>
+    </message>
+    <message>
+        <source>CONNECT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SUNNYLINK</source>
+        <translation type="unfinished">SUNNYLINK</translation>
+    </message>
+    <message>
+        <source>Select up to %1 metrics to display</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ModelsPanel</name>
     <message>
         <source>Current Model</source>
@@ -1156,28 +1195,28 @@ The default software delay value is 0.2</source>
     <message>
         <source>Unable to download updates
 %1</source>
-        <translation>업데이트를 다운로드할 수 없습니다
+        <translation type="vanished">업데이트를 다운로드할 수 없습니다
 %1</translation>
     </message>
     <message>
         <source>Taking camera snapshots. System won&apos;t start until finished.</source>
-        <translation>카메라 스냅샷을 촬영하는 중입니다. 완료될 때까지 시스템이 시작되지 않습니다.</translation>
+        <translation type="vanished">카메라 스냅샷을 촬영하는 중입니다. 완료될 때까지 시스템이 시작되지 않습니다.</translation>
     </message>
     <message>
         <source>An update to your device&apos;s operating system is downloading in the background. You will be prompted to update when it&apos;s ready to install.</source>
-        <translation>기기 운영체제 업데이트가 백그라운드에서 다운로드 중입니다. 설치가 준비되면 업데이트를 진행하라는 메시지가 표시됩니다.</translation>
+        <translation type="vanished">기기 운영체제 업데이트가 백그라운드에서 다운로드 중입니다. 설치가 준비되면 업데이트를 진행하라는 메시지가 표시됩니다.</translation>
     </message>
     <message>
         <source>NVMe drive not mounted.</source>
-        <translation>NVMe 드라이브가 마운트되지 않았습니다.</translation>
+        <translation type="vanished">NVMe 드라이브가 마운트되지 않았습니다.</translation>
     </message>
     <message>
         <source>Device temperature too high. System cooling down before starting. Current internal component temperature: %1</source>
-        <translation>기기 온도가 너무 높습니다. 시스템이 시작하기 전에 온도를 낮추고 있습니다. 현재 내부 부품 온도는 %1입니다.</translation>
+        <translation type="vanished">기기 온도가 너무 높습니다. 시스템이 시작하기 전에 온도를 낮추고 있습니다. 현재 내부 부품 온도는 %1입니다.</translation>
     </message>
     <message>
         <source>Device failed to register with the comma.ai backend. It will not connect or upload to comma.ai servers, and receives no support from comma.ai. If this is a device purchased at comma.ai/shop, open a ticket at https://comma.ai/support.</source>
-        <translation>기기가 comma.ai 서버에 등록되지 못했습니다. 따라서 comma.ai 서버에 연결하거나 데이터를 업로드할 수 없으며, comma.ai의 지원도 받을 수 없습니다. 만약 이 기기를 comma.ai/shop에서 구매했다면, https://comma.ai/support에서 지원 티켓을 열어주세요.</translation>
+        <translation type="vanished">기기가 comma.ai 서버에 등록되지 못했습니다. 따라서 comma.ai 서버에 연결하거나 데이터를 업로드할 수 없으며, comma.ai의 지원도 받을 수 없습니다. 만약 이 기기를 comma.ai/shop에서 구매했다면, https://comma.ai/support에서 지원 티켓을 열어주세요.</translation>
     </message>
     <message>
         <source>Acknowledge Excessive Actuation</source>
@@ -1189,29 +1228,29 @@ The default software delay value is 0.2</source>
     </message>
     <message>
         <source>openpilot detected excessive %1 actuation on your last drive. Please contact support at https://comma.ai/support and share your device&apos;s Dongle ID for troubleshooting.</source>
-        <translation>openpilot이 지난 주행에서 과도한 %1 작동을 감지했습니다. 문제 해결을 위해 https://comma.ai/support로 지원팀에 연락하시고, 사용 중인 기기의 동글 ID를 공유해 주세요.</translation>
+        <translation type="vanished">openpilot이 지난 주행에서 과도한 %1 작동을 감지했습니다. 문제 해결을 위해 https://comma.ai/support로 지원팀에 연락하시고, 사용 중인 기기의 동글 ID를 공유해 주세요.</translation>
     </message>
     <message>
         <source>Immediately connect to the internet to check for updates. If you do not connect to the internet, sunnypilot won&apos;t engage in %1</source>
-        <translation>즉시 인터넷에 연결하여 업데이트를 확인하세요. 인터넷에 연결하지 않으면, %1 후 sunnypilot이 비활성화됩니다.</translation>
+        <translation type="vanished">즉시 인터넷에 연결하여 업데이트를 확인하세요. 인터넷에 연결하지 않으면, %1 후 sunnypilot이 비활성화됩니다.</translation>
     </message>
     <message>
         <source>Connect to internet to check for updates. sunnypilot won&apos;t automatically start until it connects to internet to check for updates.</source>
-        <translation>업데이트를 확인하려면 인터넷에 연결해 주세요. 인터넷에 연결하여 업데이트를 확인할 때까지 sunnypilot은 자동으로 시작되지 않습니다.</translation>
+        <translation type="vanished">업데이트를 확인하려면 인터넷에 연결해 주세요. 인터넷에 연결하여 업데이트를 확인할 때까지 sunnypilot은 자동으로 시작되지 않습니다.</translation>
     </message>
     <message>
         <source>sunnypilot was unable to identify your car. Your car is either unsupported or its ECUs are not recognized. Please submit a pull request to add the firmware versions to the proper vehicle. Need help? Join discord.comma.ai.</source>
-        <translation>sunnypilot이 당신의 차량을 식별하지 못했습니다. 현재 차량은 지원되지 않거나, 차량의 ECU가 인식되지 않습니다. 올바른 차량에 펌웨어 버전을 추가하는 풀 리퀘스트를 제출해 주세요. 도움이 필요하면 discord.comma.ai에 참여하세요.</translation>
+        <translation type="vanished">sunnypilot이 당신의 차량을 식별하지 못했습니다. 현재 차량은 지원되지 않거나, 차량의 ECU가 인식되지 않습니다. 올바른 차량에 펌웨어 버전을 추가하는 풀 리퀘스트를 제출해 주세요. 도움이 필요하면 discord.comma.ai에 참여하세요.</translation>
     </message>
     <message>
         <source>sunnypilot detected a change in the device&apos;s mounting position. Ensure the device is fully seated in the mount and the mount is firmly secured to the windshield.</source>
-        <translation>sunnypilot이 기기의 장착 위치 변화를 감지했습니다. 기기가 마운트에 완전히 장착되었는지, 그리고 마운트가 앞유리에 단단히 고정되었는지 확인하세요.</translation>
+        <translation type="vanished">sunnypilot이 기기의 장착 위치 변화를 감지했습니다. 기기가 마운트에 완전히 장착되었는지, 그리고 마운트가 앞유리에 단단히 고정되었는지 확인하세요.</translation>
     </message>
     <message>
         <source>OpenStreetMap database is out of date. New maps must be downloaded if you wish to continue using OpenStreetMap data for Enhanced Speed Control and road name display.
 
 %1</source>
-        <translation>OpenStreetMap 데이터베이스가 최신이 아닙니다. 향상된 속도 제어 및 도로명 표시를 위해 OpenStreetMap 데이터를 계속 사용하려면, 새로운 지도를 다운로드해야 합니다.
+        <translation type="vanished">OpenStreetMap 데이터베이스가 최신이 아닙니다. 향상된 속도 제어 및 도로명 표시를 위해 OpenStreetMap 데이터를 계속 사용하려면, 새로운 지도를 다운로드해야 합니다.
 
 %1</translation>
     </message>
@@ -1724,15 +1763,15 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>HIGH</source>
-        <translation>높음</translation>
+        <translation type="vanished">높음</translation>
     </message>
     <message>
         <source>GOOD</source>
-        <translation>정상</translation>
+        <translation type="vanished">정상</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>양호</translation>
+        <translation type="vanished">양호</translation>
     </message>
     <message>
         <source>VEHICLE</source>
@@ -1773,6 +1812,22 @@ Warning: You are on a metered connection!</source>
     <message>
         <source>5G</source>
         <translation>5G</translation>
+    </message>
+    <message>
+        <source>CPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MEMORY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STORAGE</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2285,6 +2340,70 @@ Warning: You are on a metered connection!</source>
         <source>Enable the sunnypilot longitudinal control (alpha) toggle to allow Experimental mode.</source>
         <translation>실험 모드를 활성화하려면 sunnypilot 가감속 제어(알파) 토글을 켜세요.</translation>
     </message>
+    <message>
+        <source>Enable Dashcam Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable HTTP server for viewing dashcam recordings through web browser.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strict</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moderate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lenient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distraction Detection Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set how sensitive the driver distraction detection should be. Strict: Very sensitive, warns on minor distractions. Moderate: Balanced between sensitivity and false positives. Lenient: Only alerts on clear distractions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dashcam Server Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8082</source>
+        <translation type="unfinished">5G {8082?}</translation>
+    </message>
+    <message>
+        <source>Set the port number for the dashcam server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter Port Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port (1024-65535)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">열기</translation>
+    </message>
+    <message>
+        <source>Live stream</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable the live streaming feature of Dashy.When enabled, you can access the camera feed in real-time through the web UI.Make sure your device is connected to the same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TreeOptionDialog</name>
@@ -2338,6 +2457,22 @@ Warning: You are on a metered connection!</source>
     <message>
         <source>Display useful metrics below the chevron that tracks the lead car (only applicable to cars with openpilot longitudinal control).</source>
         <translation>앞차를 추적하는 역삼각형 아래에 유용한 측정 지표를 표시합니다. (openpilot 가감속 제어 기능이 있는 차량에만 해당됩니다)</translation>
+    </message>
+    <message>
+        <source>Enable Rainbow Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>.....</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sidebar Metrics Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select which metrics to display in the sidebar. You can choose up to 8 metrics. Changes will take effect immediately.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -884,6 +884,45 @@ Firehose Mode allows you to maximize your training data uploads to improve openp
     </message>
 </context>
 <context>
+    <name>MetricsConfigControlSP</name>
+    <message>
+        <source>TEMP</source>
+        <translation type="unfinished">温度</translation>
+    </message>
+    <message>
+        <source>CPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MEMORY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STORAGE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PANDA</source>
+        <translation type="unfinished">PANDA</translation>
+    </message>
+    <message>
+        <source>CONNECT</source>
+        <translation type="unfinished">接続</translation>
+    </message>
+    <message>
+        <source>SUNNYLINK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select up to %1 metrics to display</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ModelsPanel</name>
     <message>
         <source>Current Model</source>
@@ -1148,28 +1187,28 @@ The default software delay value is 0.2</source>
     <message>
         <source>Unable to download updates
 %1</source>
-        <translation>更新をダウンロードできませんでした
+        <translation type="vanished">更新をダウンロードできませんでした
 %1</translation>
     </message>
     <message>
         <source>Taking camera snapshots. System won&apos;t start until finished.</source>
-        <translation>スナップショットを撮影中です。完了するまでシステムは起動しません。</translation>
+        <translation type="vanished">スナップショットを撮影中です。完了するまでシステムは起動しません。</translation>
     </message>
     <message>
         <source>An update to your device&apos;s operating system is downloading in the background. You will be prompted to update when it&apos;s ready to install.</source>
-        <translation>オペレーティングシステムがバックグラウンドでダウンロードされています。インストールの準備が整うと更新を促されます。</translation>
+        <translation type="vanished">オペレーティングシステムがバックグラウンドでダウンロードされています。インストールの準備が整うと更新を促されます。</translation>
     </message>
     <message>
         <source>NVMe drive not mounted.</source>
-        <translation>SSDドライブ(NVMe)がマウントされていません。</translation>
+        <translation type="vanished">SSDドライブ(NVMe)がマウントされていません。</translation>
     </message>
     <message>
         <source>Device temperature too high. System cooling down before starting. Current internal component temperature: %1</source>
-        <translation>デバイスの温度が高すぎるためシステム起動前の冷却中です。現在のデバイス内部温度: %1</translation>
+        <translation type="vanished">デバイスの温度が高すぎるためシステム起動前の冷却中です。現在のデバイス内部温度: %1</translation>
     </message>
     <message>
         <source>Device failed to register with the comma.ai backend. It will not connect or upload to comma.ai servers, and receives no support from comma.ai. If this is a device purchased at comma.ai/shop, open a ticket at https://comma.ai/support.</source>
-        <translation>製品のcomma.aiへの登録に失敗しました。このデバイスはcomma.aiのサーバーに接続したりアップロードを行ったりすることはできず、comma.aiからのサポートも受けられません。もしcomma.ai/shopで購入した場合は、https://comma.ai/support にてサポートチケットをご提出ください。</translation>
+        <translation type="vanished">製品のcomma.aiへの登録に失敗しました。このデバイスはcomma.aiのサーバーに接続したりアップロードを行ったりすることはできず、comma.aiからのサポートも受けられません。もしcomma.ai/shopで購入した場合は、https://comma.ai/support にてサポートチケットをご提出ください。</translation>
     </message>
     <message>
         <source>Acknowledge Excessive Actuation</source>
@@ -1178,32 +1217,6 @@ The default software delay value is 0.2</source>
     <message>
         <source>Snooze Update</source>
         <translation>また後で更新する</translation>
-    </message>
-    <message>
-        <source>openpilot detected excessive %1 actuation on your last drive. Please contact support at https://comma.ai/support and share your device&apos;s Dongle ID for troubleshooting.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Immediately connect to the internet to check for updates. If you do not connect to the internet, sunnypilot won&apos;t engage in %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connect to internet to check for updates. sunnypilot won&apos;t automatically start until it connects to internet to check for updates.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sunnypilot was unable to identify your car. Your car is either unsupported or its ECUs are not recognized. Please submit a pull request to add the firmware versions to the proper vehicle. Need help? Join discord.comma.ai.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sunnypilot detected a change in the device&apos;s mounting position. Ensure the device is fully seated in the mount and the mount is firmly secured to the windshield.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenStreetMap database is out of date. New maps must be downloaded if you wish to continue using OpenStreetMap data for Enhanced Speed Control and road name display.
-
-%1</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1710,15 +1723,15 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>HIGH</source>
-        <translation>高温</translation>
+        <translation type="vanished">高温</translation>
     </message>
     <message>
         <source>GOOD</source>
-        <translation>最適</translation>
+        <translation type="vanished">最適</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="vanished">OK</translation>
     </message>
     <message>
         <source>VEHICLE</source>
@@ -1759,6 +1772,22 @@ Warning: You are on a metered connection!</source>
     <message>
         <source>5G</source>
         <translation>5G</translation>
+    </message>
+    <message>
+        <source>CPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPU</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MEMORY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STORAGE</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2271,6 +2300,70 @@ Warning: You are on a metered connection!</source>
         <source>Enable the sunnypilot longitudinal control (alpha) toggle to allow Experimental mode.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enable Dashcam Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable HTTP server for viewing dashcam recordings through web browser.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strict</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Moderate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lenient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distraction Detection Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set how sensitive the driver distraction detection should be. Strict: Very sensitive, warns on minor distractions. Moderate: Balanced between sensitivity and false positives. Lenient: Only alerts on clear distractions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dashcam Server Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8082</source>
+        <translation type="unfinished">5G {8082?}</translation>
+    </message>
+    <message>
+        <source>Set the port number for the dashcam server.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter Port Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Port (1024-65535)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">開く</translation>
+    </message>
+    <message>
+        <source>Live stream</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable the live streaming feature of Dashy.When enabled, you can access the camera feed in real-time through the web UI.Make sure your device is connected to the same network.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TreeOptionDialog</name>
@@ -2323,6 +2416,22 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>Display useful metrics below the chevron that tracks the lead car (only applicable to cars with openpilot longitudinal control).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Rainbow Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>.....</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sidebar Metrics Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select which metrics to display in the sidebar. You can choose up to 8 metrics. Changes will take effect immediately.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
