@@ -309,88 +309,6 @@ class GoogleTranslator(BaseTranslator):
             print(f"Google translation error: {e}")
             return None
 
-class DictionaryTranslator(BaseTranslator):
-    """本地字典翻译器"""
-    
-    def __init__(self):
-        super().__init__("dictionary")
-        self._rate_limit_delay = 0
-        
-        # 内置翻译字典
-        self.translations = {
-            "zh-CHS": {
-                # 基本操作
-                "Close": "关闭",
-                "Cancel": "取消", 
-                "OK": "确定",
-                "Yes": "是",
-                "No": "否",
-                "Back": "返回",
-                "Next": "下一步",
-                "Continue": "继续",
-                "Confirm": "确认",
-                "Save": "保存",
-                "Reset": "重置",
-                "Delete": "删除",
-                "Edit": "编辑",
-                "View": "查看",
-                "Select": "选择",
-                "Search": "搜索",
-                "Enable": "启用",
-                "Disable": "禁用",
-                "On": "开启",
-                "Off": "关闭",
-                "Connect": "连接",
-                "Download": "下载",
-                "Install": "安装",
-                "Update": "更新",
-                "Settings": "设置",
-                "Advanced": "高级",
-                "Default": "默认",
-                "Auto": "自动",
-                
-                # 设备相关
-                "Device": "设备",
-                "Network": "网络",
-                "Wi-Fi": "Wi-Fi",
-                "GPS": "GPS",
-                "Camera": "摄像头",
-                "Temperature": "温度",
-                "TEMP": "温度",
-                "HIGH": "过高",
-                "GOOD": "良好",
-                "VEHICLE": "车辆",
-                "ONLINE": "在线",
-                "OFFLINE": "离线",
-                "ERROR": "错误",
-                
-                # OpenPilot特定
-                "EXPERIMENTAL MODE ON": "实验模式运行",
-                "CHILL MODE ON": "轻松模式运行",
-                "Reboot": "重启",
-                "Power Off": "关机",
-                "Language": "语言",
-                "Brightness": "亮度",
-                
-                # 时间和状态
-                "Loading...": "加载中...",
-                "Ready": "就绪",
-                "Complete": "完成",
-                "Failed": "失败",
-                "Warning": "警告",
-                "now": "现在",
-                "Hours": "小时",
-                "Minutes": "分钟",
-            }
-        }
-    
-    def is_available(self) -> bool:
-        return True
-    
-    async def translate(self, text: str, target_language: str, source_language: str = "en") -> Optional[str]:
-        translations = self.translations.get(target_language, {})
-        return translations.get(text)
-
 class MultiTranslator:
     """多翻译器管理器"""
     
@@ -400,11 +318,10 @@ class MultiTranslator:
             "deepl": DeepLTranslator(),
             "baidu": BaiduTranslator(),
             "google": GoogleTranslator(),
-            "dictionary": DictionaryTranslator(),
         }
         
         # 翻译器优先级（按质量排序）
-        self.priority_order = ["dictionary", "deepl", "openai", "baidu", "google"]
+        self.priority_order = ["deepl", "openai", "baidu", "google"]
     
     def get_available_translators(self) -> List[str]:
         """获取可用的翻译器列表"""
@@ -677,7 +594,7 @@ async def main():
     parser.add_argument("--language", type=str,
                        help="目标语言 (如: zh-CHS, ja, ko)")
     parser.add_argument("--translator", type=str, default="auto",
-                       choices=["openai", "deepl", "baidu", "google", "dictionary", "auto"],
+                       choices=["openai", "deepl", "baidu", "google", "auto"],
                        help="翻译器选择")
     parser.add_argument("--all-translations", action="store_true",
                        help="翻译所有条目，不仅仅是未完成的")
