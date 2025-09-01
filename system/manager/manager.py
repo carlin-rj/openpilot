@@ -19,6 +19,7 @@ from openpilot.system.athena.registration import register, UNREGISTERED_DONGLE_I
 from openpilot.common.swaglog import cloudlog, add_file_handler
 from openpilot.system.version import get_build_metadata, terms_version, training_version
 from openpilot.system.hardware.hw import Paths
+from openpilot.system.hardware import PC
 
 
 def manager_init() -> None:
@@ -84,14 +85,15 @@ def manager_init() -> None:
     os.environ['CLEAN'] = '1'
 
   # init logging
-  sentry.init(sentry.SentryProject.SELFDRIVE)
-  cloudlog.bind_global(dongle_id=dongle_id,
-                       version=build_metadata.openpilot.version,
-                       origin=build_metadata.openpilot.git_normalized_origin,
-                       branch=build_metadata.channel,
-                       commit=build_metadata.openpilot.git_commit,
-                       dirty=build_metadata.openpilot.is_dirty,
-                       device=HARDWARE.get_device_type())
+  if not PC:
+    sentry.init(sentry.SentryProject.SELFDRIVE)
+    cloudlog.bind_global(dongle_id=dongle_id,
+                         version=build_metadata.openpilot.version,
+                         origin=build_metadata.openpilot.git_normalized_origin,
+                         branch=build_metadata.channel,
+                         commit=build_metadata.openpilot.git_commit,
+                         dirty=build_metadata.openpilot.is_dirty,
+                         device=HARDWARE.get_device_type())
 
   # preimport all processes
   for p in managed_processes.values():
