@@ -31,8 +31,8 @@ VisualsPanel::VisualsPanel(QWidget *parent) : QWidget(parent) {
     {
       "RainbowMode",
       tr("Enable Rainbow Mode"),
-      tr("....."),
-      "../assets/offroad/icon_blank.png",
+      RainbowizeWords(tr("A beautiful rainbow effect on the path the model wants to take.")) + "<br/><i>" + tr("It")+ " <b>" + tr("does not") + "</b> " + tr("affect driving in any way.") + "</i>",
+      "../assets/offroad/icon_monitoring.png",
       false,
     },
   };
