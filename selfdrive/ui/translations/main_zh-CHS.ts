@@ -2524,8 +2524,7 @@ Warning: You are on a metered connection!</source>
     <message>
         <source>Right &amp;&amp;
 Bottom</source>
-        <translation>右边 &amp;&amp; 下面
-</translation>
+        <translation>右边与下面</translation>
     </message>
     <message>
         <source>Developer UI</source>
