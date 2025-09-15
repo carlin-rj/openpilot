@@ -245,8 +245,8 @@ This only toggles the visibility of the controls; it does not toggle the actual 
         <translation>启用快速启动模式</translation>
     </message>
     <message>
-        <source>Quickboot mode requires updates to be disabled.&lt;br&gt;Enable &apos;Disable Updates&apos; in the Software panel first.</source>
-        <translation>快速启动模式需要禁用更新。&lt;br&gt;请先在软件面板中启用&quot;禁用更新&quot;。</translation>
+        <source>Quickboot mode requires updates to be disabled.&lt;br&gt;Enable 'Disable Updates' in the Software panel first.</source>
+        <translation>快速启动模式需要禁用更新。&lt;br&gt;请先在软件面板中启用"禁用更新"。</translation>
     </message>
     <message>
         <source>When toggled on, this creates a prebuilt file to allow accelerated boot times. When toggled off, it immediately removes the prebuilt file so compilation of locally edited cpp files can be made. &lt;br&gt;&lt;br&gt;&lt;b&gt;To edit C++ files locally on device, you MUST first turn off this toggle so the changes can recompile.&lt;/b&gt;</source>
@@ -254,11 +254,11 @@ This only toggles the visibility of the controls; it does not toggle the actual 
     </message>
     <message>
         <source>Enable Copyparty service</source>
-        <translation type="unfinished"></translation>
+        <translation>启用CopyParty服务</translation>
     </message>
     <message>
-        <source>Copyparty is a very capable file server, you can use it to download your routes, view your logs and even make some edits on some files from your browser. Requires you to connect to your comma locally via it&apos;s IP.</source>
-        <translation type="unfinished"></translation>
+        <source>Copyparty is a very capable file server, you can use it to download your routes, view your logs and even make some edits on some files from your browser. Requires you to connect to your comma locally via it's IP.</source>
+        <translation>CopyParty是一家功能强大的文件服务器，您可以使用它下载路线，查看日志，甚至可以从浏览器中进行某些文件进行一些编辑。</translation>
     </message>
 </context>
 <context>
@@ -609,55 +609,55 @@ This is the time after which settings UI closes automatically if user is not int
     <name>ExternalStorageControl</name>
     <message>
         <source>External Storage</source>
-        <translation type="unfinished"></translation>
+        <translation>外部存储</translation>
     </message>
     <message>
-        <source>Extend your comma device&apos;s storage by inserting a USB drive into the aux port.</source>
-        <translation type="unfinished"></translation>
+        <source>Extend your comma device's storage by inserting a USB drive into the aux port.</source>
+        <translation>通过将USB驱动器插入AUX端口来扩展逗号设备的存储空间。</translation>
     </message>
     <message>
         <source>CHECK</source>
-        <translation type="unfinished"></translation>
+        <translation>查看</translation>
     </message>
     <message>
         <source>MOUNT</source>
-        <translation type="unfinished"></translation>
+        <translation>山</translation>
     </message>
     <message>
         <source>UNMOUNT</source>
-        <translation type="unfinished"></translation>
+        <translation>卸载</translation>
     </message>
     <message>
         <source>FORMAT</source>
-        <translation type="unfinished"></translation>
+        <translation>格式</translation>
     </message>
     <message>
         <source>Are you sure you want to format this drive? This will erase all data.</source>
-        <translation type="unfinished"></translation>
+        <translation>您确定要格式化此驱动器吗？</translation>
     </message>
     <message>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation>格式</translation>
     </message>
     <message>
         <source>formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>格式化</translation>
     </message>
     <message>
         <source>insert drive</source>
-        <translation type="unfinished"></translation>
+        <translation>插入驱动器</translation>
     </message>
     <message>
         <source>needs format</source>
-        <translation type="unfinished"></translation>
+        <translation>需要格式</translation>
     </message>
     <message>
         <source>mounting</source>
-        <translation type="unfinished"></translation>
+        <translation>安装</translation>
     </message>
     <message>
         <source>unmounting</source>
-        <translation type="unfinished"></translation>
+        <translation>卸载</translation>
     </message>
 </context>
 <context>
@@ -671,7 +671,7 @@ This is the time after which settings UI closes automatically if user is not int
         <translation>激活中</translation>
     </message>
     <message>
-        <source>For maximum effectiveness, bring your device inside and connect to a good USB-C adapter and Wi-Fi weekly.&lt;br&gt;&lt;br&gt;Firehose Mode can also work while you&apos;re driving if connected to a hotspot or unlimited SIM card.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Frequently Asked Questions&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Does it matter how or where I drive?&lt;/i&gt; Nope, just drive as you normally would.&lt;br&gt;&lt;br&gt;&lt;i&gt;Do all of my segments get pulled in Firehose Mode?&lt;/i&gt; No, we selectively pull a subset of your segments.&lt;br&gt;&lt;br&gt;&lt;i&gt;What&apos;s a good USB-C adapter?&lt;/i&gt; Any fast phone or laptop charger should be fine.&lt;br&gt;&lt;br&gt;&lt;i&gt;Does it matter which software I run?&lt;/i&gt; Yes, only upstream sunnypilot (and particular forks) are able to be used for training.</source>
+        <source>For maximum effectiveness, bring your device inside and connect to a good USB-C adapter and Wi-Fi weekly.&lt;br&gt;&lt;br&gt;Firehose Mode can also work while you're driving if connected to a hotspot or unlimited SIM card.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Frequently Asked Questions&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Does it matter how or where I drive?&lt;/i&gt; Nope, just drive as you normally would.&lt;br&gt;&lt;br&gt;&lt;i&gt;Do all of my segments get pulled in Firehose Mode?&lt;/i&gt; No, we selectively pull a subset of your segments.&lt;br&gt;&lt;br&gt;&lt;i&gt;What's a good USB-C adapter?&lt;/i&gt; Any fast phone or laptop charger should be fine.&lt;br&gt;&lt;br&gt;&lt;i&gt;Does it matter which software I run?&lt;/i&gt; Yes, only upstream sunnypilot (and particular forks) are able to be used for training.</source>
         <translation>为了达到最佳效果，请每周将您的设备带回室内，并连接到优质的 USB-C 充电器和 Wi-Fi。&lt;br&gt;&lt;br&gt;Firehose 模式在行驶时也能运行，但需连接到移动热点或使用不限流量的 SIM 卡。&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;常见问题&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;我开车的方式或地点有影响吗？&lt;/i&gt;不会，请像平常一样驾驶即可。&lt;br&gt;&lt;br&gt;&lt;i&gt;Firehose 模式会上传所有的驾驶片段吗？&lt;/i&gt;不会，我们会选择性地上传部分片段。&lt;br&gt;&lt;br&gt;&lt;i&gt;什么是好的 USB-C 充电器？&lt;/i&gt;任何快速手机或笔记本电脑充电器都应该适用。&lt;br&gt;&lt;br&gt;&lt;i&gt;我使用的软件版本有影响吗？&lt;/i&gt;有的，只有官方 sunnypilot（以及特定的分支）可以用于训练。</translation>
     </message>
     <message numerus="yes">
@@ -683,14 +683,14 @@ This is the time after which settings UI closes automatically if user is not int
     <message>
         <source>sunnypilot learns to drive by watching humans, like you, drive.
 
-Firehose Mode allows you to maximize your training data uploads to improve openpilot&apos;s driving models. More data means bigger models, which means better Experimental Mode.</source>
+Firehose Mode allows you to maximize your training data uploads to improve openpilot's driving models. More data means bigger models, which means better Experimental Mode.</source>
         <translation>​​sunnypilot 通过观察人类驾驶（如您的驾驶行为）来学习驾驶。​​
 
 ​​Firehose 模式​​可最大化训练数据上传，用于改进 openpilot 的驾驶模型。数据越多，模型越强，​​实验模式（Experimental Mode）​​的表现也会更优。</translation>
     </message>
     <message>
-        <source>&lt;span stylesheet=&apos;font-size: 60px; font-weight: bold; color: #e74c3c;&apos;&gt;INACTIVE&lt;/span&gt;: connect to an unmetered network</source>
-        <translation>&lt;span stylesheet=&apos;font-size: 60px; font-weight: bold; color: #e74c3c;&apos;&gt;闲置&lt;/span&gt;：请连接到不限流量的网络</translation>
+        <source>&lt;span stylesheet='font-size: 60px; font-weight: bold; color: #e74c3c;'&gt;INACTIVE&lt;/span&gt;: connect to an unmetered network</source>
+        <translation>&lt;span stylesheet='font-size: 60px; font-weight: bold; color: #e74c3c;'&gt;闲置&lt;/span&gt;：请连接到不限流量的网络</translation>
     </message>
     <message>
         <source>Firehose Mode</source>
@@ -746,8 +746,8 @@ Firehose Mode allows you to maximize your training data uploads to improve openp
         <translation>​​此功能仅在使用 openpilot 纵向控制时可用。​​</translation>
     </message>
     <message>
-        <source>Enable &quot;Always Offroad&quot; in Device panel, or turn vehicle off to select an option.</source>
-        <translation>在设备面板中启用 &quot; 始终离线模式 &quot;，或关闭车辆以选择选项。</translation>
+        <source>Enable "Always Offroad" in Device panel, or turn vehicle off to select an option.</source>
+        <translation>在设备面板中启用 " 始终离线模式 "，或关闭车辆以选择选项。</translation>
     </message>
     <message>
         <source>Off: Uses default tuning</source>
@@ -1159,15 +1159,15 @@ The default software delay value is 0.2</source>
     </message>
     <message>
         <source>Use Lane Turn Desires</source>
-        <translation type="unfinished"></translation>
+        <translation>使用车道转弯欲望</translation>
     </message>
     <message>
         <source>Adjust Lane Turn Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>调整车道转速速度</translation>
     </message>
     <message>
         <source>Set the maximum speed for lane turn desires. Default is 19 %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>设置车道转弯欲望的最大速度。</translation>
     </message>
 </context>
 <context>
@@ -1192,8 +1192,8 @@ The default software delay value is 0.2</source>
         <translation>输入密码</translation>
     </message>
     <message>
-        <source>for &quot;%1&quot;</source>
-        <translation>网络名称：&quot;%1&quot;</translation>
+        <source>for "%1"</source>
+        <translation>网络名称："%1"</translation>
     </message>
     <message>
         <source>Wrong password</source>
@@ -1246,12 +1246,12 @@ The default software delay value is 0.2</source>
         <translation>模糊</translation>
     </message>
     <message>
-        <source>Match: &quot;Exact&quot; is ideal, but &quot;Fuzzy&quot; is fine too.</source>
-        <translation>匹配：&quot;Exact&quot;是理想的，但&quot;Fuzzy&quot;也可以。</translation>
+        <source>Match: "Exact" is ideal, but "Fuzzy" is fine too.</source>
+        <translation>匹配："Exact"是理想的，但"Fuzzy"也可以。</translation>
     </message>
     <message>
-        <source>Formerly known as &lt;b&gt;&quot;NNFF&quot;&lt;/b&gt;, this replaces the lateral &lt;b&gt;&quot;torque&quot;&lt;/b&gt; controller, with one using a neural network trained on each car&apos;s (actually, each separate EPS firmware) driving data for increased controls accuracy.</source>
-        <translation>以前称为&lt;b&gt;&quot;NNFF&quot;&lt;/b&gt;，它取代了横向&lt;b&gt;&quot;torque&quot;&lt;/b&gt;控制，​​其中一个版本采用神经网络训练，针对每款车型（严格来说是针对不同的电动助力转向系统固件版本）的驾驶数据进行优化，从而提升控制精度。​​</translation>
+        <source>Formerly known as &lt;b&gt;"NNFF"&lt;/b&gt;, this replaces the lateral &lt;b&gt;"torque"&lt;/b&gt; controller, with one using a neural network trained on each car's (actually, each separate EPS firmware) driving data for increased controls accuracy.</source>
+        <translation>以前称为&lt;b&gt;"NNFF"&lt;/b&gt;，它取代了横向&lt;b&gt;"torque"&lt;/b&gt;控制，​​其中一个版本采用神经网络训练，针对每款车型（严格来说是针对不同的电动助力转向系统固件版本）的驾驶数据进行优化，从而提升控制精度。​​</translation>
     </message>
     <message>
         <source>Reach out to the sunnypilot team in the following channel at the sunnypilot Discord server</source>
@@ -2164,19 +2164,19 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>🚀 sunnylink 🚀</source>
-        <translation type="unfinished"></translation>
+        <translation>🚀Sunnylink🚀</translation>
     </message>
     <message>
         <source>For secure backup, restore, and remote configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>用于安全备份，还原和远程配置</translation>
     </message>
     <message>
-        <source>Sponsorship isn&apos;t required for basic backup/restore</source>
-        <translation type="unfinished"></translation>
+        <source>Sponsorship isn't required for basic backup/restore</source>
+        <translation>基本备份/还原不需要赞助</translation>
     </message>
     <message>
         <source>Click the sponsor button for more details</source>
-        <translation type="unfinished"></translation>
+        <translation>单击赞助商按钮以获取更多详细信息</translation>
     </message>
 </context>
 <context>
@@ -2190,15 +2190,15 @@ Warning: You are on a metered connection!</source>
         <translation>按照提示完成配对过程</translation>
     </message>
     <message>
-        <source>Re-enter the &quot;sunnylink&quot; panel to verify sponsorship status</source>
-        <translation>重新输入&quot;sunnylink&quot; 核实赞助状态的小组</translation>
+        <source>Re-enter the "sunnylink" panel to verify sponsorship status</source>
+        <translation>重新输入"sunnylink" 核实赞助状态的小组</translation>
     </message>
     <message>
         <source>If sponsorship status was not updated, please contact a moderator on Discord at https://discord.gg/sunnypilot</source>
         <translation>如果赞助状态没有更新，请联系Discord上的主持人(https://discord.gg/sunnypilot)</translation>
     </message>
     <message>
-        <source>Scan the QR code to visit sunnyhaibin&apos;s GitHub Sponsors page</source>
+        <source>Scan the QR code to visit sunnyhaibin's GitHub Sponsors page</source>
         <translation>扫描二维码访问 sunnyhaibin 的 GitHub 赞助页面</translation>
     </message>
     <message>
@@ -2444,7 +2444,7 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>Favorites</source>
-        <translation type="unfinished"></translation>
+        <translation>收藏夹</translation>
     </message>
 </context>
 <context>
@@ -2498,45 +2498,42 @@ Warning: You are on a metered connection!</source>
         <translation>选择在侧边栏中显示哪些指标。您最多可以选择8个指标。更改将立即生效。</translation>
     </message>
     <message>
-        <source>.....</source>
-        <translation type="vanished">.....</translation>
-    </message>
-    <message>
         <source> Changing this setting will restart openpilot if the car is powered on.</source>
         <translation>修改此设置将在车辆通电时重启openpilot系统。</translation>
     </message>
     <message>
         <source>A beautiful rainbow effect on the path the model wants to take.</source>
-        <translation type="unfinished"></translation>
+        <translation>模型想要采取的道路上的美丽彩虹效果。</translation>
     </message>
     <message>
         <source>It</source>
-        <translation type="unfinished"></translation>
+        <translation>它</translation>
     </message>
     <message>
         <source>does not</source>
-        <translation type="unfinished"></translation>
+        <translation>没有</translation>
     </message>
     <message>
         <source>affect driving in any way.</source>
-        <translation type="unfinished"></translation>
+        <translation>以任何方式影响驾驶。</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>右边</translation>
     </message>
     <message>
         <source>Right &amp;&amp;
 Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>右边 &amp;&amp; 下面
+</translation>
     </message>
     <message>
         <source>Developer UI</source>
-        <translation type="unfinished"></translation>
+        <translation>开发人员UI</translation>
     </message>
     <message>
         <source>Display real-time parameters and metrics from various sources.</source>
-        <translation type="unfinished"></translation>
+        <translation>显示各种来源的实时参数和指标。</translation>
     </message>
 </context>
 <context>
