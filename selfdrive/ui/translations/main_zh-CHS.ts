@@ -252,6 +252,14 @@ This only toggles the visibility of the controls; it does not toggle the actual 
         <source>When toggled on, this creates a prebuilt file to allow accelerated boot times. When toggled off, it immediately removes the prebuilt file so compilation of locally edited cpp files can be made. &lt;br&gt;&lt;br&gt;&lt;b&gt;To edit C++ files locally on device, you MUST first turn off this toggle so the changes can recompile.&lt;/b&gt;</source>
         <translation>当开关打开时，这会创建一个预构建的文件以实现更快的启动时间。当开关关闭时，它会立即删除预构建文件，以便可以编译本地编辑的cpp文件。&lt;br&gt;&lt;br&gt;&lt;b&gt;要在设备上本地编辑C++文件，您必须首先关闭此开关，以便更改可以重新编译。&lt;/b&gt;</translation>
     </message>
+    <message>
+        <source>Enable Copyparty service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copyparty is a very capable file server, you can use it to download your routes, view your logs and even make some edits on some files from your browser. Requires you to connect to your comma locally via it&apos;s IP.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DevicePanel</name>
@@ -536,7 +544,7 @@ This is the time after which settings UI closes automatically if user is not int
         <translation>为设置UI应用自定义超时。
 这是设置UI在用户不与屏幕交互时自动关闭的时间。</translation>
     </message>
-    </context>
+</context>
 <context>
     <name>DriveStats</name>
     <message>
@@ -598,6 +606,61 @@ This is the time after which settings UI closes automatically if user is not int
     </message>
 </context>
 <context>
+    <name>ExternalStorageControl</name>
+    <message>
+        <source>External Storage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extend your comma device&apos;s storage by inserting a USB drive into the aux port.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CHECK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MOUNT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UNMOUNT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FORMAT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to format this drive? This will erase all data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insert drive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>needs format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mounting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unmounting</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FirehosePanel</name>
     <message>
         <source>Firehose Mode: ACTIVE</source>
@@ -608,7 +671,7 @@ This is the time after which settings UI closes automatically if user is not int
         <translation>激活中</translation>
     </message>
     <message>
-        <source>For maximum effectiveness, bring your device inside and connect to a good USB-C adapter and Wi-Fi weekly.&lt;br&gt;&lt;br&gt;Firehose Mode can also work while you're driving if connected to a hotspot or unlimited SIM card.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Frequently Asked Questions&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Does it matter how or where I drive?&lt;/i&gt; Nope, just drive as you normally would.&lt;br&gt;&lt;br&gt;&lt;i&gt;Do all of my segments get pulled in Firehose Mode?&lt;/i&gt; No, we selectively pull a subset of your segments.&lt;br&gt;&lt;br&gt;&lt;i&gt;What's a good USB-C adapter?&lt;/i&gt; Any fast phone or laptop charger should be fine.&lt;br&gt;&lt;br&gt;&lt;i&gt;Does it matter which software I run?&lt;/i&gt; Yes, only upstream sunnypilot (and particular forks) are able to be used for training.</source>
+        <source>For maximum effectiveness, bring your device inside and connect to a good USB-C adapter and Wi-Fi weekly.&lt;br&gt;&lt;br&gt;Firehose Mode can also work while you&apos;re driving if connected to a hotspot or unlimited SIM card.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Frequently Asked Questions&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Does it matter how or where I drive?&lt;/i&gt; Nope, just drive as you normally would.&lt;br&gt;&lt;br&gt;&lt;i&gt;Do all of my segments get pulled in Firehose Mode?&lt;/i&gt; No, we selectively pull a subset of your segments.&lt;br&gt;&lt;br&gt;&lt;i&gt;What&apos;s a good USB-C adapter?&lt;/i&gt; Any fast phone or laptop charger should be fine.&lt;br&gt;&lt;br&gt;&lt;i&gt;Does it matter which software I run?&lt;/i&gt; Yes, only upstream sunnypilot (and particular forks) are able to be used for training.</source>
         <translation>为了达到最佳效果，请每周将您的设备带回室内，并连接到优质的 USB-C 充电器和 Wi-Fi。&lt;br&gt;&lt;br&gt;Firehose 模式在行驶时也能运行，但需连接到移动热点或使用不限流量的 SIM 卡。&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;常见问题&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;我开车的方式或地点有影响吗？&lt;/i&gt;不会，请像平常一样驾驶即可。&lt;br&gt;&lt;br&gt;&lt;i&gt;Firehose 模式会上传所有的驾驶片段吗？&lt;/i&gt;不会，我们会选择性地上传部分片段。&lt;br&gt;&lt;br&gt;&lt;i&gt;什么是好的 USB-C 充电器？&lt;/i&gt;任何快速手机或笔记本电脑充电器都应该适用。&lt;br&gt;&lt;br&gt;&lt;i&gt;我使用的软件版本有影响吗？&lt;/i&gt;有的，只有官方 sunnypilot（以及特定的分支）可以用于训练。</translation>
     </message>
     <message numerus="yes">
@@ -648,7 +711,18 @@ Firehose Mode allows you to maximize your training data uploads to improve openp
         <source>MAX</source>
         <translation>最高定速</translation>
     </message>
-    </context>
+</context>
+<context>
+    <name>HudRendererSP</name>
+    <message>
+        <source>km/h</source>
+        <translation>km/h</translation>
+    </message>
+    <message>
+        <source>mph</source>
+        <translation>mph</translation>
+    </message>
+</context>
 <context>
     <name>HyundaiSettings</name>
     <message>
@@ -785,7 +859,7 @@ Firehose Mode allows you to maximize your training data uploads to improve openp
         <source>Start the vehicle to check vehicle compatibility.</source>
         <translation>启动车辆以检查车辆兼容性。</translation>
     </message>
-    </context>
+</context>
 <context>
     <name>MadsSettings</name>
     <message>
@@ -1082,6 +1156,18 @@ The default software delay value is 0.2</source>
     <message>
         <source>Clear Cache</source>
         <translation>清除缓存</translation>
+    </message>
+    <message>
+        <source>Use Lane Turn Desires</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust Lane Turn Speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the maximum speed for lane turn desires. Default is 19 %1.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2194,7 +2280,7 @@ Warning: You are on a metered connection!</source>
         <translation>测试模式</translation>
     </message>
     <message>
-        <source>sunnypilot defaults to driving in &lt;b&gt;chill mode&lt;/b&gt;. Experimental mode enables &lt;b&gt;alpha-level features&lt;/b&gt; that aren't ready for chill mode. Experimental features are listed below:</source>
+        <source>sunnypilot defaults to driving in &lt;b&gt;chill mode&lt;/b&gt;. Experimental mode enables &lt;b&gt;alpha-level features&lt;/b&gt; that aren&apos;t ready for chill mode. Experimental features are listed below:</source>
         <translation>sunnypilot 默认 &lt;b&gt;轻松模式&lt;/b&gt;驾驶车辆。试验模式启用一些轻松模式之外的 &lt;b&gt;试验性功能&lt;/b&gt;。试验性功能包括：</translation>
     </message>
     <message>
@@ -2206,7 +2292,7 @@ Warning: You are on a metered connection!</source>
         <translation>新驾驶视角</translation>
     </message>
     <message>
-        <source>Experimental mode is currently unavailable on this car since the car's stock ACC is used for longitudinal control.</source>
+        <source>Experimental mode is currently unavailable on this car since the car&apos;s stock ACC is used for longitudinal control.</source>
         <translation>由于此车辆使用自带的ACC纵向控制，当前无法使用试验模式。</translation>
     </message>
     <message>
@@ -2356,6 +2442,10 @@ Warning: You are on a metered connection!</source>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
+    <message>
+        <source>Favorites</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VisualsPanel</name>
@@ -2409,11 +2499,44 @@ Warning: You are on a metered connection!</source>
     </message>
     <message>
         <source>.....</source>
-        <translation>.....</translation>
+        <translation type="vanished">.....</translation>
     </message>
     <message>
         <source> Changing this setting will restart openpilot if the car is powered on.</source>
         <translation>修改此设置将在车辆通电时重启openpilot系统。</translation>
+    </message>
+    <message>
+        <source>A beautiful rainbow effect on the path the model wants to take.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>It</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>does not</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>affect driving in any way.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right &amp;&amp;
+Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Developer UI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display real-time parameters and metrics from various sources.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
