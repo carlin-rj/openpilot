@@ -30,6 +30,7 @@ protected:
  std::map<std::string, ParamControlSP*> toggles;
  ParamWatcher * param_watcher;
  ButtonParamControlSP *chevron_info_settings;
+ ButtonParamControlSP *dev_ui_settings;
 
 // 在private部分添加
 MetricsConfigControlSP *metrics_config;
