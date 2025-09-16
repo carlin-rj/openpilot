@@ -1167,7 +1167,7 @@ The default software delay value is 0.2</source>
     </message>
     <message>
         <source>Set the maximum speed for lane turn desires. Default is 19 %1.</source>
-        <translation>设置车道转弯意愿的最大速度。</translation>
+        <translation>设置车道转弯意愿的最大速度。默认 19 %1</translation>
     </message>
 </context>
 <context>
